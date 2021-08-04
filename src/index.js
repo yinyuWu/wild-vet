@@ -4,10 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Amplify from 'aws-amplify';
-import config from './aws-exports';
 
-Amplify.configure(config);
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
