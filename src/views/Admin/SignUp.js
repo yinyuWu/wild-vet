@@ -80,10 +80,6 @@ class SignUp extends Component {
 								<Form.Control />
 							</Form.Group>
 						</Row>
-
-						<Form.Group className="mb-3" id="formGridCheckbox">
-							<Form.Check type="checkbox" label="Check me out" />
-						</Form.Group>
 						<Row>
 							<Col md={{ span: 4, offset: 8 }} sm={{ span: 12 }}>
 								<Button variant="primary" className="signup-form-btn" 
