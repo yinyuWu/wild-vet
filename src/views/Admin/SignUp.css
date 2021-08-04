@@ -1,0 +1,32 @@
+.signup {
+    width: 40%;
+    margin: 3rem auto;
+    border: 1px solid #212529;
+    border-radius: 8px;
+}
+
+.signup .signup-form {
+    margin: 2rem;
+}
+
+.signup .signup-form .form-select {
+    text-overflow: ellipsis;
+}
+
+.signup .signup-title {
+    border-bottom: 1px solid #212529;
+    padding: 1rem 2rem;
+}
+
+.signup .signup-form-btn {
+    width: 100%;
+}
+
+@media (max-width: 992px) {
+    .signup {
+        width: 90%;
+        margin: 3rem auto;
+        border: 1px solid #212529;
+        border-radius: 1rem;
+    }
+}
