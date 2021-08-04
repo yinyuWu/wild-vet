@@ -1,0 +1,19 @@
+.signin {
+  width: 30%;
+  margin: 3rem auto;
+  border: 1px solid #212529;
+  border-radius: 8px;
+}
+
+.signin .signin-form {
+  margin: 2rem;
+}
+
+.signin .signin-title {
+  border-bottom: 1px solid #212529;
+  padding: 1rem 2rem;
+}
+
+.signin .signin-form-btn {
+  width: 100%;
+}

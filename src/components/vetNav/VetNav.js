@@ -20,7 +20,7 @@ class VetNav extends Component {
 								<Nav.Link href="#pets">My Pets</Nav.Link>
 							</Nav>
 							<Nav>
-								<Nav.Link href="/signUp" className="nav-sign-in">Sign In</Nav.Link>
+								<Nav.Link href="/signIn" className="nav-sign-in">Sign In</Nav.Link>
 								<Nav.Link href="/signUp" className="nav-sign-up">Sign Up</Nav.Link>
 							</Nav>
 						</Navbar.Collapse>
