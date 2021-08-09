@@ -1,0 +1,34 @@
+.pet-list {
+    width: 80%;
+    margin: 4rem auto;
+}
+
+.pet-list .pet-list-add-btn {
+    position: relative;
+    left: 100%;
+    transform: translateX(-100%);
+}
+
+.pet-list .pet-list-remove-btn {
+    margin-right: 1rem;
+}
+
+.pet-list .pet-list-cell-problem {
+    width: 40%;
+}
+
+.pet-list .pet-list-cell-problem div {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 30rem;
+    height: 3rem;
+}
+
+.pet-list .pet-list-cell-action {
+    width: 18%;
+}
+
+.pet-list td:nth-child(3) {
+  width: 12%;
+}

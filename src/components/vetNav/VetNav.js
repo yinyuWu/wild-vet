@@ -17,7 +17,7 @@ class VetNav extends Component {
 							<Nav className="me-auto">
 								<Nav.Link href="/">Home</Nav.Link>
 								<Nav.Link href="#about">About Us</Nav.Link>
-								<Nav.Link href="#pets">My Pets</Nav.Link>
+								<Nav.Link href="/pet-list">My Pets</Nav.Link>
 							</Nav>
 							<Nav>
 								<Nav.Link href="/signIn" className="nav-sign-in">Sign In</Nav.Link>
