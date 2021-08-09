@@ -1,0 +1,16 @@
+.confirm {
+  width: 30%;
+  margin: 3rem auto;
+  border: 1px solid #212529;
+}
+
+.confirm .confirm-form {
+  margin: 2rem;
+}
+
+.confirm .confirm-form-btn {
+  position: relative;
+  left: 100%;
+  transform: translateX(-100%);
+  width: 40%;
+}

@@ -78,7 +78,7 @@
           "resourceNameTruncated": "wildvecfc377f0",
           "userPoolName": "wildvetcfc377f0_userpool_cfc377f0",
           "autoVerifiedAttributes": "email",
-          "mfaConfiguration": "OFF",
+          "mfaConfiguration": "OPTIONAL",
           "mfaTypes": "SMS Text Message",
           "smsAuthenticationMessage": "Your authentication code is {####}",
           "smsVerificationMessage": "Your verification code is {####}",
@@ -94,7 +94,7 @@
           "userpoolClientWriteAttributes": "email",
           "userpoolClientReadAttributes": "email",
           "userpoolClientLambdaRole": "wildvecfc377f0_userpoolclient_lambda_role",
-          "userpoolClientSetAttributes": false,
+          "userpoolClientSetAttributes": true,
           "sharedId": "cfc377f0",
           "resourceName": "wildvetcfc377f0",
           "authSelections": "identityPoolAndUserPool",
@@ -115,6 +115,16 @@
           "serviceName": "Cognito",
           "usernameCaseSensitive": false,
           "dependsOn": "",
+          "userPoolGroups": false,
+          "adminQueries": false,
+          "triggers": "{}",
+          "hostedUI": false,
+          "parentStack": {
+            "Ref": "AWS::StackId"
+          },
+          "breakCircularDependency": true,
+          "permissions": "",
+          "authProviders": "",
           "env": "staging"
         }
       }

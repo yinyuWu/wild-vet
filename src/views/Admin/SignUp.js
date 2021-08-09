@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Auth } from 'aws-amplify';
 import './SignUp.css'
 
 class SignUp extends Component {
@@ -15,51 +16,50 @@ class SignUp extends Component {
         phone: '',
         address: '',
       },
-      invalidInput: {
-        password: false
-      },
       validated: false
       // states: ['New South Wales', 'Victoria', 'South Australia',
       //   'Western Australia', 'Northern Territory', 'Queensland', 'Tasmania']
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.validate = this.validate.bind(this);
   }
 
-  handleSubmit(event) {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
+  async handleSubmit(event) {
+    // validate form
+    const form = document.getElementById("signupForm");
+    const isValid = form.checkValidity();
+    if (isValid === false) {
       event.preventDefault();
       event.stopPropagation();
     }
     this.setState({
       validated: true
     })
-    console.log(this.state.user);
+
+    // call amplify api
+    if (isValid) {
+      const { password, address, phone, email, firstName, lastName } = this.state.user;
+      await Auth.signUp({
+        username: firstName,
+        password,
+        attributes: {
+          address,
+          firstName,
+          lastName,
+          phone,
+          email
+        }
+      });
+      window.location = '/confirm-code';
+    }
   }
 
   handleInputChange(e) {
     let user = { ...this.state.user };
     user[e.target.name] = e.target.value;
-    if (e.target.name === 'password') {
-      this.validate(e.target.name, e.target.value)
-    }
     this.setState({
       user
     });
-  }
-
-  validate(field, value) {
-    let invalid = true;
-    let invalidInput = {...this.state.invalidInput}
-    if (field === 'password') {
-      invalid = (value.length < 5 || value.length > 20) ? true : false;
-      invalidInput[field] = invalid
-    }
-    this.setState({
-      invalidInput
-    })
   }
 
   render() {
@@ -67,7 +67,7 @@ class SignUp extends Component {
       <div className="signup">
         <h2 className="signup-title">Sign Up</h2>
         <div className="signup-form">
-          <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
+          <Form noValidate validated={this.state.validated} id="signupForm">
             <Form.Group className="mb-3" controlId="formGridEmail">
               <Form.Label>Email</Form.Label>
               <Form.Control required type="email" name="email" placeholder="Enter email" value={this.state.user.email} onChange={this.handleInputChange} />
@@ -75,20 +75,20 @@ class SignUp extends Component {
 
             <Form.Group className="mb-3" controlId="formGridPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control required type="password" name="password" placeholder="Password" value={this.state.user.password} onChange={this.handleInputChange} isInvalid={this.state.invalidInput.password}/>
+              <Form.Control required type="password" name="password" placeholder="Password" value={this.state.user.password} onChange={this.handleInputChange} />
             </Form.Group>
 
             <Row className="mb-3">
               <Col sm={12} md={6}>
                 <Form.Group className="mb-3" controlId="formGridFirstName">
                   <Form.Label>First Name</Form.Label>
-                  <Form.Control required placeholder="First Name" name="lastName" value={this.state.user.firstName} onChange={this.handleInputChange} />
+                  <Form.Control required placeholder="First Name" name="firstName" value={this.state.user.firstName} onChange={this.handleInputChange} />
                 </Form.Group>
               </Col>
               <Col sm={12} md={6}>
                 <Form.Group className="mb-3" controlId="formGridLastName">
                   <Form.Label>Last Name</Form.Label>
-                  <Form.Control required placeholder="Last Name" name="firstName" value={this.state.user.lastName} onChange={this.handleInputChange} />
+                  <Form.Control required placeholder="Last Name" name="lastName" value={this.state.user.lastName} onChange={this.handleInputChange} />
                 </Form.Group>
               </Col>
             </Row>
@@ -104,9 +104,8 @@ class SignUp extends Component {
             </Form.Group>
             <Row>
               <Col md={{ span: 4, offset: 8 }} sm={{ span: 12 }}>
-                <Button variant="primary" className="signup-form-btn"
-                  onClick={this.handleSubmit}>
-                  Submit
+                <Button variant="primary" className="signup-form-btn" onClick={this.handleSubmit}>
+                  Sign Up
                 </Button>
               </Col>
             </Row>

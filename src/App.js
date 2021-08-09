@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom'
 import SignIn from './views/Admin/SignIn';
 import PetList from './views/Pet/PetList';
 import About from './views/About/About';
+import ConfirmCode from './views/Admin/ConfirmCode';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <div>
         <Route path="/" exact component={Home}/>
         <Route path="/signup" component={SignUp}/>
+        <Route path="/confirm-code" component={ConfirmCode}/>
         <Route path="/signin" component={SignIn}/>
         <Route path="/pet-list" component={PetList}/>
         <Route path="/about" component={About}/>

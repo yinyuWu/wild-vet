@@ -16,7 +16,7 @@ class VetNav extends Component {
 						<Navbar.Collapse id="basic-navbar-nav">
 							<Nav className="me-auto">
 								<Nav.Link href="/">Home</Nav.Link>
-								<Nav.Link href="#about">About Us</Nav.Link>
+								<Nav.Link href="/about">About Us</Nav.Link>
 								<Nav.Link href="/pet-list">My Pets</Nav.Link>
 							</Nav>
 							<Nav>
