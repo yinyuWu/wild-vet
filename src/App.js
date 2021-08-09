@@ -4,6 +4,7 @@ import VetNav from './components/VetNav/VetNav'
 import { Route } from 'react-router-dom'
 import SignIn from './views/Admin/SignIn';
 import PetList from './views/Pet/PetList';
+import About from './views/About/About';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/signup" component={SignUp}/>
         <Route path="/signin" component={SignIn}/>
         <Route path="/pet-list" component={PetList}/>
+        <Route path="/about" component={About}/>
       </div>
     </div>
   );
