@@ -1,6 +1,6 @@
 {
   "auth": {
-    "wildvetcfc377f0": {
+    "wildvetbd89cbcc": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],

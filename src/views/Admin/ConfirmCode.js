@@ -8,10 +8,12 @@ class ConfirmCode extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      code: ''
+      code: '',
+      error: {}
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleResent = this.handleResent.bind(this);
   }
 
   handleInputChange(e) {
@@ -20,11 +22,27 @@ class ConfirmCode extends Component {
     });
   }
 
-  async handleSubmit() {
+  async handleResent() {
+    const username = window.localStorage.getItem('username');
     try {
-      await Auth.confirmSignUp(this.props.username, this.state.code);
-    } catch (error) {
-      console.log('error confirming sign up', error);
+      await Auth.resendSignUp(username);
+      console.log('code resent successfully');
+    } catch (err) {
+      console.log('error resending code: ', err);
+    }
+  }
+
+  async handleSubmit() {
+    const username = window.localStorage.getItem('username');
+    try {
+      await Auth.confirmSignUp(username, this.state.code);
+      window.location = '/';
+    } catch (err) {
+      if (err.code === "CodeMismatchException") {
+        let error = { msg: err.message };
+        this.setState({ error });
+      }
+      console.log('error confirming sign up', err);
     }
   }
 
@@ -35,12 +53,21 @@ class ConfirmCode extends Component {
           <Form>
             <Form.Group className="mb-3" controlId="confirmCode">
               <Form.Label>Confirm Code</Form.Label>
-              <Form.Control required name="code" placeholder="Enter Code" value={this.state.code} onChange={this.handleInputChange} />
+              <Form.Control required className={this.state.error.msg && "confirm-form-input-error"} name="code" placeholder="Enter Code" value={this.state.code} onChange={this.handleInputChange} />
+              {this.state.error.msg && <div className="confirm-form-error">{this.state.error.msg}</div>}
             </Form.Group>
-            <Button variant="primary" className="confirm-form-btn"
-              onClick={this.handleSubmit}>
-              Confirm Code
-            </Button>
+
+            <div className="confirm-form-btn">
+              <Button size="sm" variant="primary"
+                onClick={this.handleResent}>
+                Resent Code
+              </Button>
+              <Button size="sm" variant="primary"
+                onClick={this.handleSubmit}>
+                Confirm Code
+              </Button>
+            </div>
+
           </Form>
         </div>
       </div>

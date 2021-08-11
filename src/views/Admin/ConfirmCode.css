@@ -4,13 +4,34 @@
   border: 1px solid #212529;
 }
 
+@media (max-width: 992px) {
+  .confirm {
+    width: 80%;
+    margin: 3rem auto;
+    border: 1px solid #212529;
+  }
+}
+
 .confirm .confirm-form {
   margin: 2rem;
 }
 
 .confirm .confirm-form-btn {
-  position: relative;
-  left: 100%;
-  transform: translateX(-100%);
-  width: 40%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.confirm .confirm-form-btn button:nth-child(2) {
+  margin-left: 1rem;
+}
+
+.confirm .confirm-form .confirm-form-input-error {
+  border-color: #dc3545;
+}
+
+.confirm .confirm-form .confirm-form-error {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
 }

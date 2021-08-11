@@ -68,17 +68,17 @@
         }
       }
     },
-    "authwildvetcfc377f0": {
+    "authwildvetbd89cbcc": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
-        "TemplateURL": "https://s3.amazonaws.com/amplify-amplify18f93b66ad3d4-staging-05153-deployment/amplify-cfn-templates/auth/wildvetcfc377f0-cloudformation-template.yml",
+        "TemplateURL": "https://s3.amazonaws.com/amplify-amplify18f93b66ad3d4-staging-05153-deployment/amplify-cfn-templates/auth/wildvetbd89cbcc-cloudformation-template.yml",
         "Parameters": {
-          "identityPoolName": "wildvetcfc377f0_identitypool_cfc377f0",
+          "identityPoolName": "wildvetbd89cbcc_identitypool_bd89cbcc",
           "allowUnauthenticatedIdentities": false,
-          "resourceNameTruncated": "wildvecfc377f0",
-          "userPoolName": "wildvetcfc377f0_userpool_cfc377f0",
+          "resourceNameTruncated": "wildvebd89cbcc",
+          "userPoolName": "wildvetbd89cbcc_userpool_bd89cbcc",
           "autoVerifiedAttributes": "email",
-          "mfaConfiguration": "OPTIONAL",
+          "mfaConfiguration": "OFF",
           "mfaTypes": "SMS Text Message",
           "smsAuthenticationMessage": "Your authentication code is {####}",
           "smsVerificationMessage": "Your verification code is {####}",
@@ -93,10 +93,10 @@
           "userpoolClientRefreshTokenValidity": 30,
           "userpoolClientWriteAttributes": "email",
           "userpoolClientReadAttributes": "email",
-          "userpoolClientLambdaRole": "wildvecfc377f0_userpoolclient_lambda_role",
-          "userpoolClientSetAttributes": true,
-          "sharedId": "cfc377f0",
-          "resourceName": "wildvetcfc377f0",
+          "userpoolClientLambdaRole": "wildvebd89cbcc_userpoolclient_lambda_role",
+          "userpoolClientSetAttributes": false,
+          "sharedId": "bd89cbcc",
+          "resourceName": "wildvetbd89cbcc",
           "authSelections": "identityPoolAndUserPool",
           "authRoleArn": {
             "Fn::GetAtt": [
@@ -115,16 +115,6 @@
           "serviceName": "Cognito",
           "usernameCaseSensitive": false,
           "dependsOn": "",
-          "userPoolGroups": false,
-          "adminQueries": false,
-          "triggers": "{}",
-          "hostedUI": false,
-          "parentStack": {
-            "Ref": "AWS::StackId"
-          },
-          "breakCircularDependency": true,
-          "permissions": "",
-          "authProviders": "",
           "env": "staging"
         }
       }
@@ -133,7 +123,7 @@
       "DependsOn": [
         "AuthRole",
         "UnauthRole",
-        "authwildvetcfc377f0"
+        "authwildvetbd89cbcc"
       ],
       "Type": "AWS::Lambda::Function",
       "Properties": {
@@ -216,7 +206,7 @@
         },
         "idpId": {
           "Fn::GetAtt": [
-            "authwildvetcfc377f0",
+            "authwildvetbd89cbcc",
             "Outputs.IdentityPoolId"
           ]
         },

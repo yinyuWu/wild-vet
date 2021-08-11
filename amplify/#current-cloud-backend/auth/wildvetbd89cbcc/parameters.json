@@ -1,12 +1,12 @@
 {
-    "identityPoolName": "wildvetcfc377f0_identitypool_cfc377f0",
+    "identityPoolName": "wildvetbd89cbcc_identitypool_bd89cbcc",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "wildvecfc377f0",
-    "userPoolName": "wildvetcfc377f0_userpool_cfc377f0",
+    "resourceNameTruncated": "wildvebd89cbcc",
+    "userPoolName": "wildvetbd89cbcc_userpool_bd89cbcc",
     "autoVerifiedAttributes": [
         "email"
     ],
-    "mfaConfiguration": "OPTIONAL",
+    "mfaConfiguration": "OFF",
     "mfaTypes": [
         "SMS Text Message"
     ],
@@ -31,10 +31,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "wildvecfc377f0_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": true,
-    "sharedId": "cfc377f0",
-    "resourceName": "wildvetcfc377f0",
+    "userpoolClientLambdaRole": "wildvebd89cbcc_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": false,
+    "sharedId": "bd89cbcc",
+    "resourceName": "wildvetbd89cbcc",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -52,15 +52,5 @@
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "dependsOn": [],
-    "userPoolGroups": false,
-    "adminQueries": false,
-    "triggers": "{}",
-    "hostedUI": false,
-    "parentStack": {
-        "Ref": "AWS::StackId"
-    },
-    "breakCircularDependency": true,
-    "permissions": [],
-    "authProviders": []
+    "dependsOn": []
 }

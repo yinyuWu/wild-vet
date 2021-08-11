@@ -9,6 +9,21 @@
     margin: 2rem;
 }
 
+.signup .signup-form .alert {
+  padding: .5rem 1rem;
+}
+
+.signup .signup-form .signup-form-error {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #dc3545;
+}
+
+.signup .signup-form .signup-form-input-error {
+  border-color: #dc3545;
+}
+
 .signup .signup-form .form-select {
     text-overflow: ellipsis;
 }
