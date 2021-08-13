@@ -22,7 +22,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify18f93b66ad3d4-staging-05153-deployment/amplify-cfn-templates/auth/wildvetbd89cbcc-cloudformation-template.yml",
         "logicalId": "authwildvetbd89cbcc"
       },
-      "lastPushTimeStamp": "2021-08-11T02:46:50.745Z",
+      "lastPushTimeStamp": "2021-08-13T05:21:15.562Z",
       "output": {
         "UserPoolId": "us-east-2_n6z9jckyA",
         "AppClientIDWeb": "5u1vb3ijs4mbnbjsrhahr0uq5i",
@@ -33,6 +33,31 @@
         "UserPoolName": "wildvetbd89cbcc_userpool_bd89cbcc"
       },
       "lastPushDirHash": "geqdiSPOM0QLgRF0T7EP/pn4otA="
+    }
+  },
+  "api": {
+    "wildvetAPI": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authwildvetbd89cbcc"
+            }
+          },
+          "additionalAuthenticationProviders": []
+        },
+        "GraphQLAPIIdOutput": "gneov6upyvee3e6wmkd62x3mhi",
+        "GraphQLAPIEndpointOutput": "https://dvaqkggj5jfvvfqf3rrzkqjrnq.appsync-api.us-east-2.amazonaws.com/graphql"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify18f93b66ad3d4-staging-05153-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiwildvetAPI"
+      },
+      "lastPushTimeStamp": "2021-08-13T05:21:33.586Z",
+      "lastPushDirHash": "3ChQMBPDptvuidJwsMhHGw/MX9U="
     }
   }
 }

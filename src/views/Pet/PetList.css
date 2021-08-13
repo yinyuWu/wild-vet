@@ -29,6 +29,9 @@
     width: 18%;
 }
 
-.pet-list td:nth-child(3) {
-  width: 12%;
+.pet-list .pet-list-save-btn {
+  position: relative;
+  left: 100%;
+  transform: translateX(-100%);
+  margin-top: 2rem;
 }

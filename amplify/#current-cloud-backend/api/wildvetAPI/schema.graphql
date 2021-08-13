@@ -1,0 +1,15 @@
+type Pet @model {
+  id: ID!
+  name: String!
+  breed: String,
+  species: Int,
+  sex: Int,
+  color: String,
+  age: String,
+  weight: Int,
+  microchip: String,
+  insurance: String,
+  medications: String,
+  parasiteControl: String,
+  owner: String!
+}

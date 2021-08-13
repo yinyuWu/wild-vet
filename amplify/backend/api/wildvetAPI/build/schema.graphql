@@ -1,0 +1,203 @@
+type Pet {
+  id: ID!
+  name: String!
+  breed: String
+  species: Int
+  sex: Int
+  color: String
+  age: String
+  weight: Int
+  microchip: String
+  insurance: String
+  medications: String
+  parasiteControl: String
+  owner: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelPetConnection {
+  items: [Pet]
+  nextToken: String
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelPetFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  breed: ModelStringInput
+  species: ModelIntInput
+  sex: ModelIntInput
+  color: ModelStringInput
+  age: ModelStringInput
+  weight: ModelIntInput
+  microchip: ModelStringInput
+  insurance: ModelStringInput
+  medications: ModelStringInput
+  parasiteControl: ModelStringInput
+  owner: ModelStringInput
+  and: [ModelPetFilterInput]
+  or: [ModelPetFilterInput]
+  not: ModelPetFilterInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Query {
+  getPet(id: ID!): Pet
+  listPets(filter: ModelPetFilterInput, limit: Int, nextToken: String): ModelPetConnection
+}
+
+input CreatePetInput {
+  id: ID
+  name: String!
+  breed: String
+  species: Int
+  sex: Int
+  color: String
+  age: String
+  weight: Int
+  microchip: String
+  insurance: String
+  medications: String
+  parasiteControl: String
+  owner: String!
+}
+
+input UpdatePetInput {
+  id: ID!
+  name: String
+  breed: String
+  species: Int
+  sex: Int
+  color: String
+  age: String
+  weight: Int
+  microchip: String
+  insurance: String
+  medications: String
+  parasiteControl: String
+  owner: String
+}
+
+input DeletePetInput {
+  id: ID!
+}
+
+type Mutation {
+  createPet(input: CreatePetInput!, condition: ModelPetConditionInput): Pet
+  updatePet(input: UpdatePetInput!, condition: ModelPetConditionInput): Pet
+  deletePet(input: DeletePetInput!, condition: ModelPetConditionInput): Pet
+}
+
+input ModelPetConditionInput {
+  name: ModelStringInput
+  breed: ModelStringInput
+  species: ModelIntInput
+  sex: ModelIntInput
+  color: ModelStringInput
+  age: ModelStringInput
+  weight: ModelIntInput
+  microchip: ModelStringInput
+  insurance: ModelStringInput
+  medications: ModelStringInput
+  parasiteControl: ModelStringInput
+  owner: ModelStringInput
+  and: [ModelPetConditionInput]
+  or: [ModelPetConditionInput]
+  not: ModelPetConditionInput
+}
+
+type Subscription {
+  onCreatePet: Pet @aws_subscribe(mutations: ["createPet"])
+  onUpdatePet: Pet @aws_subscribe(mutations: ["updatePet"])
+  onDeletePet: Pet @aws_subscribe(mutations: ["deletePet"])
+}

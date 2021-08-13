@@ -30,6 +30,7 @@ class SignUp extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.validate = this.validate.bind(this);
+    this.validateField = this.validateField.bind(this);
   }
 
   async handleSubmit() {
@@ -38,7 +39,6 @@ class SignUp extends Component {
     if (errors) return;
 
     // call amplify signup api
-
     const { username, password, address, phone, email, postcode } = this.state.user;
     try {
       await Auth.signUp({
@@ -51,9 +51,9 @@ class SignUp extends Component {
           'custom:postcode': postcode
         }
       });
-      window.location = '/confirm-code';
       window.localStorage.setItem('username', username);
-
+      window.localStorage.setItem('email', email);
+      this.props.history.push('/confirm-code');
     } catch (err) {
       console.log(err);
       if (err.code === "UsernameExistsException") {
@@ -125,7 +125,7 @@ class SignUp extends Component {
               {this.state.errors.password && <div className="signup-form-error">{this.state.errors.password}</div>}
             </Form.Group>
 
-            <Form.Group controlId="formGridPhone">
+            <Form.Group className="mb-3" controlId="formGridPhone">
               <Form.Label>Phone</Form.Label>
               <Form.Control className={this.state.errors.phone && "signup-form-input-error"} required placeholder="Phone Number" name="phone" value={this.state.user.phone} onChange={this.handleInputChange} />
             </Form.Group>

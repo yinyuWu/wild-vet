@@ -17,3 +17,14 @@
 .signin .signin-form-btn {
   width: 100%;
 }
+
+.signin .signin-form .signin-form-error {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+}
+
+.signin .signin-form .signin-form-input-error {
+border-color: #dc3545;
+}

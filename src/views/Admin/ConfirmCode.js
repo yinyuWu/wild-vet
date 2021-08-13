@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Form, Button } from 'react-bootstrap';
-import './ConfirmCode.css'
+import { connect } from 'react-redux';
+import { login } from '../../actions';
 import { Auth } from 'aws-amplify';
-
+import './ConfirmCode.css'
 class ConfirmCode extends Component {
 
   constructor(props) {
@@ -36,7 +37,11 @@ class ConfirmCode extends Component {
     const username = window.localStorage.getItem('username');
     try {
       await Auth.confirmSignUp(username, this.state.code);
-      window.location = '/';
+      const user = await Auth.currentAuthenticatedUser();
+      this.props.toLogin(user);
+      window.localStorage.removeItem("username");
+      window.localStorage.removeItem("email");
+      this.props.history.push('/');
     } catch (err) {
       if (err.code === "CodeMismatchException") {
         let error = { msg: err.message };
@@ -67,7 +72,6 @@ class ConfirmCode extends Component {
                 Confirm Code
               </Button>
             </div>
-
           </Form>
         </div>
       </div>
@@ -75,4 +79,16 @@ class ConfirmCode extends Component {
   }
 }
 
-export default ConfirmCode;
+const mapStateToProps = state => {
+  return {
+    isLogin: state.user.isLogin
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    toLogin: (user) => dispatch(login(user))
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ConfirmCode);
