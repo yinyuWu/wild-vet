@@ -8,7 +8,7 @@ class Footer extends Component {
       <div className="footer">
         <div className="footer-container">
           <div className="footer-container-item">
-            <img src={logo} alt="logo" width="100" height="100" className="d-inline-block align-top" />
+            <img src={logo} alt="logo" width="60" height="60" className="d-inline-block align-top" />
             <p className="footer-container-item-name">The Wild Vet Veterinarian Clinic</p>
           </div>
           <div className="footer-container-item">

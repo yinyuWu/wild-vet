@@ -37,17 +37,13 @@ class ConfirmCode extends Component {
     const username = window.localStorage.getItem('username');
     try {
       await Auth.confirmSignUp(username, this.state.code);
-      const user = await Auth.currentAuthenticatedUser();
-      this.props.toLogin(user);
-      window.localStorage.removeItem("username");
-      window.localStorage.removeItem("email");
-      this.props.history.push('/');
+      this.props.history.push('/signin');
     } catch (err) {
       if (err.code === "CodeMismatchException") {
         let error = { msg: err.message };
         this.setState({ error });
       }
-      console.log('error confirming sign up', err);
+      console.log('error confirming code: ', err);
     }
   }
 
