@@ -6,6 +6,9 @@ import './PetList.css'
 import { API, graphqlOperation } from 'aws-amplify';
 import { listPets } from '../../graphql/queries';
 import { deletePet } from '../../graphql/mutations';
+import { jsPDF } from "jspdf";
+import Auth from '@aws-amplify/auth';
+import axios from 'axios';
 
 class PetList extends Component {
 
@@ -100,8 +103,42 @@ class PetList extends Component {
     await this.getPetList();
   }
 
-  handleSavePets() {
-    console.log("save pets")
+  async handleSavePets() {
+    const saveUserFileApi = 'https://427fv2fo2c.execute-api.us-east-2.amazonaws.com/live/uploaduser';
+    const sendEmailApi = 'https://427fv2fo2c.execute-api.us-east-2.amazonaws.com/live/wildvetsendemail';
+
+    // store user and pet info
+    console.log("save pets");
+    const doc = new jsPDF();
+
+    const user = await Auth.currentAuthenticatedUser();
+    const { address, email, phone_number } = user.attributes;
+    doc.text(this.props.user.username, 10, 10);
+    doc.text(`email: ${email}\naddress: ${address}\nphone: ${phone_number}`, 10, 20);
+    doc.text('##############\n', 10, 50);
+    for (let i = 0; i < this.state.petList.length; i++) {
+      const pet = this.state.petList[i];
+      doc.text(`name: ${pet.name}, age: ${pet.age}, sex: ${this.state.petSex[pet.sex]}\nspecies: ${this.state.species[pet.species]}, breed: ${pet.breed}, color: ${pet.color}, weight: ${pet.weight}\nmedications: ${pet.medications}\ninsurance: ${pet.insurance}\nmicrochip: ${pet.microchip}\nparasite control: ${pet.parasiteControl}`, 10, 70 + i * 60);
+    }
+    // doc.save('user.pdf');
+    const pdfFile = doc.output('datauristring');
+    const content = pdfFile.replace(/^data:application\/pdf;filename=generated.pdf;base64,/, "");
+
+    // store pdf in s3 bucket
+    axios.post(saveUserFileApi, {
+      username: this.props.user.username,
+      content
+    }).then(res => {
+      let result = res.data;
+      console.log(result);
+      // send email
+      axios.post(sendEmailApi, {
+        username: this.props.user.username
+      }).then(res => {
+        let result = res.data;
+        console.log(result);
+      })
+    })
   }
 
   render() {
@@ -138,7 +175,7 @@ class PetList extends Component {
               </tbody>
             </Table>
             <Button size="lg" className="pet-list-save-btn" onClick={this.handleSavePets}>Save Pets</Button>
-            <PetInfo ref={this.child} show={this.state.showPetInfo} onClose={this.handleCloseAddForm} actionType={this.state.actionType} pet={this.state.selectedPet} username={this.props.user.username} getPets={this.getPetList}/>
+            <PetInfo ref={this.child} show={this.state.showPetInfo} onClose={this.handleCloseAddForm} actionType={this.state.actionType} pet={this.state.selectedPet} username={this.props.user.username} getPets={this.getPetList} />
           </div>}
       </div>
     )

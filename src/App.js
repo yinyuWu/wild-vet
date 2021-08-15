@@ -6,10 +6,12 @@ import SignIn from './views/Admin/SignIn';
 import PetList from './views/Pet/PetList';
 import About from './views/About/About';
 import ConfirmCode from './views/Admin/ConfirmCode';
+import Footer from './components/Footer/Footer';
+import './App.css'
 
 function App() {
   return (
-    <div>
+    <div className="app">
       <VetNav />
       <div>
         <Route path="/" exact component={Home}/>
@@ -18,6 +20,9 @@ function App() {
         <Route path="/signin" component={SignIn}/>
         <Route path="/pet-list" component={PetList}/>
         <Route path="/about" component={About}/>
+      </div>
+      <div className="app-footer">
+        <Footer />
       </div>
     </div>
   );

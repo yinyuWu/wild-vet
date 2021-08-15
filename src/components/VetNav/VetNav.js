@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Navbar, Container, Nav, Button } from 'react-bootstrap';
+import { Navbar, Container, Nav, Button, Form, FormControl } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { logout } from '../../actions';
 import { Auth } from 'aws-amplify';
@@ -36,7 +36,17 @@ class VetNav extends Component {
                 <Link className="nav-link" to="/">Home</Link>
                 <Link className="nav-link" to="/about">About Us</Link>
                 <Link className="nav-link" to="/pet-list">My Pets</Link>
+                <Form className="d-flex">
+                  <FormControl
+                    type="search"
+                    placeholder="Search"
+                    className="mr-2"
+                    aria-label="Search"
+                  />
+                  <Button variant="outline-success">Search</Button>
+                </Form>
               </Nav>
+
               {this.props.isLogin ? <Button onClick={this.signOut}>Sign Out</Button> : <Nav>
                 <Link to="/signIn" className="nav-link nav-sign-in">Sign In</Link>
                 <Link to="/signUp" className="nav-link nav-sign-up">Sign Up</Link>
