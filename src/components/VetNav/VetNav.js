@@ -6,6 +6,7 @@ import { Auth } from 'aws-amplify';
 import { Link } from 'react-router-dom';
 import './VetNav.css'
 import logo from '../../images/logo.png'
+import AuthService from '../../views/Admin/AuthService';
 
 class VetNav extends Component {
 
@@ -17,6 +18,7 @@ class VetNav extends Component {
   async signOut() {
     try {
       await Auth.signOut();
+      AuthService.logout();
       this.props.toLogout();
     } catch (error) {
       console.log('error signing out: ', error);
@@ -47,9 +49,8 @@ class VetNav extends Component {
                 </Form>
               </Nav>
 
-              {this.props.isLogin ? <Button onClick={this.signOut}>Sign Out</Button> : <Nav>
+              {AuthService.isUserLoggedIn() ? <Button onClick={this.signOut}>Sign Out</Button> : <Nav>
                 <Link to="/signIn" className="nav-link nav-sign-in">Sign In</Link>
-                <Link to="/signUp" className="nav-link nav-sign-up">Sign Up</Link>
               </Nav>}
 
             </Navbar.Collapse>

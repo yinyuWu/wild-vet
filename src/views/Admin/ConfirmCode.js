@@ -37,6 +37,8 @@ class ConfirmCode extends Component {
     const username = window.localStorage.getItem('username');
     try {
       await Auth.confirmSignUp(username, this.state.code);
+      window.localStorage.removeItem('username');
+      window.localStorage.removeItem('email');
       this.props.history.push('/signin');
     } catch (err) {
       if (err.code === "CodeMismatchException") {

@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Link } from 'react-router-dom';
 import { login } from '../../actions';
 import { Auth } from 'aws-amplify';
+import AuthService from './AuthService';
 import Joi from 'joi-browser';
 import { connect } from 'react-redux';
 import './SignIn.css'
@@ -42,6 +44,8 @@ class SignIn extends Component {
       // store user info in redux store
       const user = await Auth.currentAuthenticatedUser();
       console.log('user: ', user);
+      AuthService.recordLogin(user.attributes.email);
+      AuthService.recordUserName(user.username);
       this.props.toLogin(user);
       this.props.history.push('/');
     } catch (err) {
@@ -107,6 +111,7 @@ class SignIn extends Component {
               <Form.Control className={this.state.errors.password && "signin-form-input-error"} required type="password" name="password" placeholder="Password" value={this.state.user.password} onChange={this.handleInputChange}/>
               {this.state.errors.password && <div className="signin-form-error">{this.state.errors.password}</div>}
             </Form.Group>
+            <p className="signin-form-msg">If you're new to wild vet, please <Link to="/signup">sign up</Link> first</p>
             <Row>
               <Col md={{ span: 4, offset: 8 }} sm={{ span: 12 }}>
                 <Button variant="primary" className="signin-form-btn"

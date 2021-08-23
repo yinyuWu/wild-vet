@@ -1,7 +1,8 @@
-import Home from './views/Home/Home'
+import Home from './views/Home/Home';
 import SignUp from './views/Admin/SignUp';
-import VetNav from './components/VetNav/VetNav'
-import { Route } from 'react-router-dom'
+import VetNav from './components/VetNav/VetNav';
+import { Route, Switch } from 'react-router-dom';
+import AuthRoute from './views/Admin/AuthRoute';
 import SignIn from './views/Admin/SignIn';
 import PetList from './views/Pet/PetList';
 import About from './views/About/About';
@@ -14,12 +15,14 @@ function App() {
     <div className="app">
       <VetNav />
       <div>
-        <Route path="/" exact component={Home}/>
-        <Route path="/signup" component={SignUp}/>
-        <Route path="/confirm-code" component={ConfirmCode}/>
-        <Route path="/signin" component={SignIn}/>
-        <Route path="/pet-list" component={PetList}/>
-        <Route path="/about" component={About}/>
+        <Switch>
+          <AuthRoute path="/" exact component={Home} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/confirm-code" component={ConfirmCode} />
+          <Route path="/signin" component={SignIn} />
+          <AuthRoute path="/pet-list" component={PetList} />
+          <AuthRoute path="/about" component={About} />
+        </Switch>
       </div>
       <div className="app-footer">
         <Footer />

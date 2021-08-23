@@ -174,7 +174,7 @@ class PetList extends Component {
                 ))}
               </tbody>
             </Table>
-            <Button size="lg" className="pet-list-save-btn" onClick={this.handleSavePets}>Save Pets</Button>
+            <Button size="lg" className="pet-list-save-btn" onClick={this.handleSavePets}>Check In</Button>
             <PetInfo ref={this.child} show={this.state.showPetInfo} onClose={this.handleCloseAddForm} actionType={this.state.actionType} pet={this.state.selectedPet} username={this.props.user.username} getPets={this.getPetList} />
           </div>}
       </div>

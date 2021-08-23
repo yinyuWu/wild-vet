@@ -9,6 +9,11 @@
   margin: 2rem;
 }
 
+.signin .signin-form-msg {
+  font-size: .9rem;
+  margin-left: .75rem;
+}
+
 .signin .signin-title {
   border-bottom: 1px solid #212529;
   padding: 1rem 2rem;
