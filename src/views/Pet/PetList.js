@@ -9,6 +9,7 @@ import { deletePet } from '../../graphql/mutations';
 import { jsPDF } from "jspdf";
 import Auth from '@aws-amplify/auth';
 import axios from 'axios';
+import AuthService from '../Admin/AuthService';
 
 class PetList extends Component {
 
@@ -41,10 +42,10 @@ class PetList extends Component {
 
   async getPetList() {
     try {
-      const user = this.props.user;
-      if (user && user.username) {
+      const user = AuthService.getUserName();
+      if (user) {
         const petData = await API.graphql(graphqlOperation(listPets));
-        const petList = petData.data.listPets.items.filter(pet => pet.owner === user.username);
+        const petList = petData.data.listPets.items.filter(pet => pet.owner === user);
         // replace null with empty string
         for (let pet of petList) {
           for (let key of Object.keys(pet)) {
@@ -72,7 +73,7 @@ class PetList extends Component {
       insurance: '',
       medications: '',
       parasiteControl: '',
-      owner: this.props.user.username
+      owner: AuthService.getUserName()
     });
     this.setState({
       actionType: 0,
@@ -113,7 +114,7 @@ class PetList extends Component {
 
     const user = await Auth.currentAuthenticatedUser();
     const { address, email, phone_number } = user.attributes;
-    doc.text(this.props.user.username, 10, 10);
+    doc.text(AuthService.getUserName(), 10, 10);
     doc.text(`email: ${email}\naddress: ${address}\nphone: ${phone_number}`, 10, 20);
     doc.text('##############\n', 10, 50);
     for (let i = 0; i < this.state.petList.length; i++) {
@@ -126,14 +127,14 @@ class PetList extends Component {
 
     // store pdf in s3 bucket
     axios.post(saveUserFileApi, {
-      username: this.props.user.username,
+      username: AuthService.getUserName(),
       content
     }).then(res => {
       let result = res.data;
       console.log(result);
       // send email
       axios.post(sendEmailApi, {
-        username: this.props.user.username
+        username: AuthService.getUserName()
       }).then(res => {
         let result = res.data;
         console.log(result);
@@ -144,7 +145,7 @@ class PetList extends Component {
   render() {
     return (
       <div className="pet-list">
-        {!this.props.isLogin ? <h1>You have to login to see your pet list</h1> :
+        {!AuthService.isUserLoggedIn() ? <h1>You have to login to see your pet list</h1> :
           <div>
             <Button variant="outline-primary" className="pet-list-add-btn mb-3" onClick={this.handleAdd}>Add Pet</Button>
             <Table hover responsive>
@@ -175,7 +176,7 @@ class PetList extends Component {
               </tbody>
             </Table>
             <Button size="lg" className="pet-list-save-btn" onClick={this.handleSavePets}>Check In</Button>
-            <PetInfo ref={this.child} show={this.state.showPetInfo} onClose={this.handleCloseAddForm} actionType={this.state.actionType} pet={this.state.selectedPet} username={this.props.user.username} getPets={this.getPetList} />
+            <PetInfo ref={this.child} show={this.state.showPetInfo} onClose={this.handleCloseAddForm} actionType={this.state.actionType} pet={this.state.selectedPet} username={AuthService.getUserName()} getPets={this.getPetList} />
           </div>}
       </div>
     )

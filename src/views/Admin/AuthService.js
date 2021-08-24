@@ -19,7 +19,6 @@ class AuthService {
 
   isUserLoggedIn() {
     let email = sessionStorage.getItem(AUTHENTICATED_EMAIL);
-    console.log(email);
     if (email == null) return false;
     return true;
   }
