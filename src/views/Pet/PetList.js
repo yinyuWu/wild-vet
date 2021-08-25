@@ -145,7 +145,7 @@ class PetList extends Component {
   render() {
     return (
       <div className="pet-list">
-        {!AuthService.isUserLoggedIn() ? <h1>You have to login to see your pet list</h1> :
+        {!AuthService.isUserLoggedIn() ? <h1 className="pet-list-none">Please sign in to see your pet list</h1> :
           <div>
             <Button variant="outline-primary" className="pet-list-add-btn mb-3" onClick={this.handleAdd}>Add Pet</Button>
             <Table hover responsive>

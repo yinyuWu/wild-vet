@@ -1,6 +1,14 @@
 .pet-list {
     width: 80%;
     margin: 4rem auto;
+    height: 100vh;
+}
+
+.pet-list-none {
+    position: relative;
+    top: 40%;
+    text-align: center;
+    font-size: 1.5rem;
 }
 
 .pet-list .pet-list-add-btn {
@@ -30,8 +38,8 @@
 }
 
 .pet-list .pet-list-save-btn {
-  position: relative;
-  left: 100%;
-  transform: translateX(-100%);
-  margin-top: 2rem;
+    position: relative;
+    left: 100%;
+    transform: translateX(-100%);
+    margin-top: 2rem;
 }

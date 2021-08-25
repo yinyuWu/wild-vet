@@ -49,7 +49,7 @@ class VetNav extends Component {
                 </Form>
               </Nav>
 
-              {AuthService.isUserLoggedIn() ? <Button onClick={this.signOut}>Sign Out</Button> : <Nav>
+              {AuthService.isUserLoggedIn() ? <Button className="nav-sign-out" onClick={this.signOut}>Sign Out</Button> : <Nav>
                 <Link to="/signIn" className="nav-link nav-sign-in">Sign In</Link>
               </Nav>}
 
