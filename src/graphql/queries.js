@@ -17,6 +17,7 @@ export const getPet = /* GraphQL */ `
       medications
       parasiteControl
       owner
+      checkedIn
       createdAt
       updatedAt
     }
@@ -43,6 +44,7 @@ export const listPets = /* GraphQL */ `
         medications
         parasiteControl
         owner
+        checkedIn
         createdAt
         updatedAt
       }

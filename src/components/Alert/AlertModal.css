@@ -1,0 +1,47 @@
+.success-modal .modal-dialog {
+  width: 300px;
+}
+
+.success-modal .modal-header {
+  border-bottom: none;
+  padding: .5rem .5rem 0 0;
+}
+
+.success-modal .modal-header .btn-close {
+  background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/.5em auto no-repeat
+}
+
+.success-modal .modal-content{
+  background-color: #d1e7dd;
+  color: #0f5132;
+  border-color: #badbcc;
+}
+
+.success-modal .modal-body {
+  font-size: 1rem;
+  padding: 0 1rem;
+}
+
+.danger-modal .modal-dialog {
+  width: 300px;
+}
+
+.danger-modal .modal-header {
+  border-bottom: none;
+  padding: .5rem .5rem 0 0;
+}
+
+.danger-modal .modal-header .btn-close {
+  background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/.5em auto no-repeat
+}
+
+.danger-modal .modal-content{
+  background-color: #f8d7da;;
+  color: #842029;
+  border-color: #f8d7da;;
+}
+
+.danger-modal .modal-body {
+  font-size: 1rem;
+  padding: 0 1rem;
+}

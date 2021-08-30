@@ -1,4 +1,8 @@
 .signup {
+    height: 100vh;
+}
+
+.signup-container {
     width: 40%;
     margin: 3rem auto;
     border: 1px solid #212529;
@@ -10,7 +14,7 @@
 }
 
 .signup .signup-form .alert {
-  padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
 }
 
 .signup .signup-form .signup-form-error {
@@ -21,7 +25,7 @@
 }
 
 .signup .signup-form .signup-form-input-error {
-  border-color: #dc3545;
+    border-color: #dc3545;
 }
 
 .signup .signup-form .form-select {

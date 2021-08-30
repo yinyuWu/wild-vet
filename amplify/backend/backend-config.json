@@ -24,10 +24,5 @@
       }
     }
   },
-  "storage": {
-    "petStorage": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation"
-    }
-  }
+  "storage": {}
 }

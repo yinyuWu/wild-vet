@@ -1,5 +1,10 @@
 .signin {
+  height: 100vh;
+}
+
+.signin-container {
   width: 30%;
+  height: 50vh;
   margin: 3rem auto;
   border: 1px solid #212529;
   border-radius: 8px;
@@ -32,4 +37,10 @@
 
 .signin .signin-form .signin-form-input-error {
 border-color: #dc3545;
+}
+
+@media (max-width: 992px) {
+  .signin {
+    width: 80%;
+  }
 }

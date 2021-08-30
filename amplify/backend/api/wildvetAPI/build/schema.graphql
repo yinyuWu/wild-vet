@@ -12,6 +12,7 @@ type Pet {
   medications: String
   parasiteControl: String
   owner: String!
+  checkedIn: Boolean
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -113,6 +114,7 @@ input ModelPetFilterInput {
   medications: ModelStringInput
   parasiteControl: ModelStringInput
   owner: ModelStringInput
+  checkedIn: ModelBooleanInput
   and: [ModelPetFilterInput]
   or: [ModelPetFilterInput]
   not: ModelPetFilterInput
@@ -150,6 +152,7 @@ input CreatePetInput {
   medications: String
   parasiteControl: String
   owner: String!
+  checkedIn: Boolean
 }
 
 input UpdatePetInput {
@@ -166,6 +169,7 @@ input UpdatePetInput {
   medications: String
   parasiteControl: String
   owner: String
+  checkedIn: Boolean
 }
 
 input DeletePetInput {
@@ -191,6 +195,7 @@ input ModelPetConditionInput {
   medications: ModelStringInput
   parasiteControl: ModelStringInput
   owner: ModelStringInput
+  checkedIn: ModelBooleanInput
   and: [ModelPetConditionInput]
   or: [ModelPetConditionInput]
   not: ModelPetConditionInput

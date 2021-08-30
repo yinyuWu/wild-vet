@@ -104,54 +104,56 @@ class SignUp extends Component {
   render() {
     return (
       <div className="signup">
-        <h2 className="signup-title">Sign Up</h2>
-        <div className="signup-form">
-          <Form noValidate id="signupForm">
-            <Form.Group className="mb-3" controlId="formGridUsername">
-              <Form.Label>Username</Form.Label>
-              <Form.Control className={this.state.errors.username && "signup-form-input-error"} required name="username" placeholder="Username" value={this.state.user.username} onChange={this.handleInputChange} />
-              {this.state.errors.username && <div className="signup-form-error">{this.state.errors.username}</div>}
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formGridEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control className={this.state.errors.email && "signup-form-input-error"} required type="email" name="email" placeholder="Email" value={this.state.user.email} onChange={this.handleInputChange} />
-              {this.state.errors.email && <div className="signup-form-error">{this.state.errors.email}</div>}
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formGridPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control className={this.state.errors.password && "signup-form-input-error"} required type="password" name="password" placeholder="Password" value={this.state.user.password} onChange={this.handleInputChange} />
-              {this.state.errors.password && <div className="signup-form-error">{this.state.errors.password}</div>}
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formGridPhone">
-              <Form.Label>Phone</Form.Label>
-              <Form.Control className={this.state.errors.phone && "signup-form-input-error"} required placeholder="Phone Number" name="phone" value={this.state.user.phone} onChange={this.handleInputChange} />
-            </Form.Group>
-            {this.state.errors.phone && <div className="signup-form-error">{this.state.errors.phone}</div>}
-
-            <Row>
-              <Form.Group as={Col} md="8" xs="6" className="mb-3" controlId="formGridAddress1">
-                <Form.Label>Address</Form.Label>
-                <Form.Control className={this.state.errors.address && "signup-form-input-error"} required placeholder="Address" name="address" value={this.state.user.address} onChange={this.handleInputChange} />
-                {this.state.errors.address && <div className="signup-form-error">{this.state.errors.address}</div>}
+        <div className="signup-container">
+          <h2 className="signup-title">Sign Up</h2>
+          <div className="signup-form">
+            <Form noValidate id="signupForm">
+              <Form.Group className="mb-3" controlId="formGridUsername">
+                <Form.Label>Username</Form.Label>
+                <Form.Control className={this.state.errors.username && "signup-form-input-error"} required name="username" placeholder="Username" value={this.state.user.username} onChange={this.handleInputChange} />
+                {this.state.errors.username && <div className="signup-form-error">{this.state.errors.username}</div>}
               </Form.Group>
-              <Form.Group as={Col} md="4" xs="6" className="mb-3" controlId="formGridPostcode">
-                <Form.Label>Postcode</Form.Label>
-                <Form.Control className={this.state.errors.postcode && "signup-form-input-error"} required placeholder="Postcode" name="postcode" value={this.state.user.postcode} onChange={this.handleInputChange} />
-                {this.state.errors.postcode && <div className="signup-form-error">{this.state.errors.postcode}</div>}
-              </Form.Group>
-            </Row>
 
-            <Row>
-              <Col md={{ span: 4, offset: 8 }} sm={{ span: 12 }}>
-                <Button variant="primary" className="signup-form-btn" onClick={this.handleSubmit}>
-                  Sign Up
-                </Button>
-              </Col>
-            </Row>
-          </Form>
+              <Form.Group className="mb-3" controlId="formGridEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control className={this.state.errors.email && "signup-form-input-error"} required type="email" name="email" placeholder="Email" value={this.state.user.email} onChange={this.handleInputChange} />
+                {this.state.errors.email && <div className="signup-form-error">{this.state.errors.email}</div>}
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="formGridPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control className={this.state.errors.password && "signup-form-input-error"} required type="password" name="password" placeholder="Password" value={this.state.user.password} onChange={this.handleInputChange} />
+                {this.state.errors.password && <div className="signup-form-error">{this.state.errors.password}</div>}
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="formGridPhone">
+                <Form.Label>Phone</Form.Label>
+                <Form.Control className={this.state.errors.phone && "signup-form-input-error"} required placeholder="Phone Number" name="phone" value={this.state.user.phone} onChange={this.handleInputChange} />
+              </Form.Group>
+              {this.state.errors.phone && <div className="signup-form-error">{this.state.errors.phone}</div>}
+
+              <Row>
+                <Form.Group as={Col} md="8" xs="6" className="mb-3" controlId="formGridAddress1">
+                  <Form.Label>Address</Form.Label>
+                  <Form.Control className={this.state.errors.address && "signup-form-input-error"} required placeholder="Address" name="address" value={this.state.user.address} onChange={this.handleInputChange} />
+                  {this.state.errors.address && <div className="signup-form-error">{this.state.errors.address}</div>}
+                </Form.Group>
+                <Form.Group as={Col} md="4" xs="6" className="mb-3" controlId="formGridPostcode">
+                  <Form.Label>Postcode</Form.Label>
+                  <Form.Control className={this.state.errors.postcode && "signup-form-input-error"} required placeholder="Postcode" name="postcode" value={this.state.user.postcode} onChange={this.handleInputChange} />
+                  {this.state.errors.postcode && <div className="signup-form-error">{this.state.errors.postcode}</div>}
+                </Form.Group>
+              </Row>
+
+              <Row>
+                <Col md={{ span: 4, offset: 8 }} sm={{ span: 12 }}>
+                  <Button variant="primary" className="signup-form-btn" onClick={this.handleSubmit}>
+                    Sign Up
+                  </Button>
+                </Col>
+              </Row>
+            </Form>
+          </div>
         </div>
       </div>
     )

@@ -13,9 +13,13 @@ class VetNav extends Component {
   constructor(props) {
     super(props);
     this.signOut = this.signOut.bind(this);
+    this.state = {
+      signOutLoading: false
+    }
   }
 
   async signOut() {
+    this.setState({ signOutLoading: true });
     try {
       await Auth.signOut();
       AuthService.logout();
@@ -23,6 +27,7 @@ class VetNav extends Component {
     } catch (error) {
       console.log('error signing out: ', error);
     }
+    this.setState({ signOutLoading: false });
   }
 
   render() {
@@ -49,7 +54,7 @@ class VetNav extends Component {
                 </Form>
               </Nav>
 
-              {AuthService.isUserLoggedIn() ? <Button className="nav-sign-out" onClick={this.signOut}>Sign Out</Button> : <Nav>
+              {AuthService.isUserLoggedIn() ? <Button disabled={this.state.signOutLoading} className="nav-sign-out" onClick={this.signOut}>{this.state.signOutLoading ? 'Logging Out...' : 'Sign Out'}</Button> : <Nav>
                 <Link to="/signIn" className="nav-link nav-sign-in">Sign In</Link>
               </Nav>}
 

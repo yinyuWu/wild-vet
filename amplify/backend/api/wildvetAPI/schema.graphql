@@ -11,5 +11,6 @@ type Pet @model {
   insurance: String,
   medications: String,
   parasiteControl: String,
-  owner: String!
+  owner: String!,
+  checkedIn: Boolean
 }

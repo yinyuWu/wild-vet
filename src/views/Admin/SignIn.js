@@ -20,7 +20,8 @@ class SignIn extends Component {
         password: Joi.string().required().label("Password"),
         email: Joi.string().required().label("Email"),
       },
-      errors: {}
+      errors: {},
+      loading: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -29,10 +30,13 @@ class SignIn extends Component {
   }
 
   async handleSubmit() {
-
+    this.setState({ loading: true });
     const errors = this.validate();
-    if (errors) return;
-    
+    if (errors) {
+      this.setState({ loading: false });
+      return;
+    };
+
     // call amplify sign in api
     const { email, password } = this.state.user;
     try {
@@ -47,9 +51,11 @@ class SignIn extends Component {
       AuthService.recordLogin(user.attributes.email);
       AuthService.recordUserName(user.username);
       this.props.toLogin(user);
+      this.setState({ loading: false });
       this.props.history.push('/');
     } catch (err) {
       console.log(err);
+      this.setState({ loading: false });
       if (err.code) {
         let errors = { ...this.state.errors };
         errors.password = err.message;
@@ -97,30 +103,32 @@ class SignIn extends Component {
   render() {
     return (
       <div className="signin">
-        <h2 className="signin-title">Sign In</h2>
-        <div className="signin-form">
-          <Form>
-            <Form.Group controlId="formGridEmail" className="mb-3">
-              <Form.Label>Email or Username</Form.Label>
-              <Form.Control className={this.state.errors.email && "signin-form-input-error"} required type="email" name="email" placeholder="Enter email" value={this.state.user.email} onChange={this.handleInputChange}/>
-              {this.state.errors.email && <div className="signin-form-error">{this.state.errors.email}</div>}
-            </Form.Group>
+        <div className="signin-container">
+          <h2 className="signin-title">Sign In</h2>
+          <div className="signin-form">
+            <Form>
+              <Form.Group controlId="formGridEmail" className="mb-3">
+                <Form.Label>Email or Username</Form.Label>
+                <Form.Control className={this.state.errors.email && "signin-form-input-error"} required type="email" name="email" placeholder="Enter email" value={this.state.user.email} onChange={this.handleInputChange} />
+                {this.state.errors.email && <div className="signin-form-error">{this.state.errors.email}</div>}
+              </Form.Group>
 
-            <Form.Group controlId="formGridPassword" className="mb-3">
-              <Form.Label>Password</Form.Label>
-              <Form.Control className={this.state.errors.password && "signin-form-input-error"} required type="password" name="password" placeholder="Password" value={this.state.user.password} onChange={this.handleInputChange}/>
-              {this.state.errors.password && <div className="signin-form-error">{this.state.errors.password}</div>}
-            </Form.Group>
-            <p className="signin-form-msg">If you're new to wild vet, please <Link to="/signup">sign up</Link> first</p>
-            <Row>
-              <Col md={{ span: 4, offset: 8 }} sm={{ span: 12 }}>
-                <Button variant="primary" className="signin-form-btn"
-                  onClick={this.handleSubmit}>
-                  Submit
-                </Button>
-              </Col>
-            </Row>
-          </Form>
+              <Form.Group controlId="formGridPassword" className="mb-3">
+                <Form.Label>Password</Form.Label>
+                <Form.Control className={this.state.errors.password && "signin-form-input-error"} required type="password" name="password" placeholder="Password" value={this.state.user.password} onChange={this.handleInputChange} />
+                {this.state.errors.password && <div className="signin-form-error">{this.state.errors.password}</div>}
+              </Form.Group>
+              <p className="signin-form-msg">If you're new to wild vet, please <Link to="/signup">sign up</Link> first</p>
+              <Row>
+                <Col md={{ span: 4, offset: 8 }} sm={{ span: 12 }}>
+                  <Button disabled={this.state.loading} variant="primary" className="signin-form-btn"
+                    onClick={this.handleSubmit}>
+                    {this.state.loading ? 'Logging...' : 'Submit'}
+                  </Button>
+                </Col>
+              </Row>
+            </Form>
+          </div>
         </div>
       </div>
     )

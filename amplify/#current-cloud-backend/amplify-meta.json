@@ -22,7 +22,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify18f93b66ad3d4-staging-05153-deployment/amplify-cfn-templates/auth/wildvetbd89cbcc-cloudformation-template.yml",
         "logicalId": "authwildvetbd89cbcc"
       },
-      "lastPushTimeStamp": "2021-08-13T05:21:15.562Z",
+      "lastPushTimeStamp": "2021-08-26T09:17:22.836Z",
       "output": {
         "UserPoolId": "us-east-2_n6z9jckyA",
         "AppClientIDWeb": "5u1vb3ijs4mbnbjsrhahr0uq5i",
@@ -56,8 +56,9 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify18f93b66ad3d4-staging-05153-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiwildvetAPI"
       },
-      "lastPushTimeStamp": "2021-08-13T05:21:33.586Z",
-      "lastPushDirHash": "3ChQMBPDptvuidJwsMhHGw/MX9U="
+      "lastPushTimeStamp": "2021-08-26T09:17:30.094Z",
+      "lastPushDirHash": "EfkRFgxNPRyEsb+c1EDqT0WiAZA="
     }
-  }
+  },
+  "storage": {}
 }

@@ -44,7 +44,8 @@ class PetInfo extends Component {
       },
       errors: {},
       species,
-      petSex
+      petSex,
+      btnLoading: false
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
@@ -68,40 +69,47 @@ class PetInfo extends Component {
   }
 
   async handleSave() {
-
+    this.setState({ btnLoading: true });
     const errors = this.validate();
-    if (errors) return;
+    console.log()
+    if (errors) {
+      this.setState({ btnLoading: false });
+      return
+    };
 
-    let pet = {...this.state.pet};
+    let pet = { ...this.state.pet };
     if (this.props.actionType === 0) {
       // add pet
-      console.log('add pet: ', pet);
+      console.log('add pet');
+      pet.checkedIn = false;
       try {
         await API.graphql(graphqlOperation(createPet, { input: pet }));
-      } catch(err) {
+      } catch (err) {
         console.log(err);
-      }      
+      }
     } else {
       // update pet
-      console.log('update pet: ', this.state.pet);
+      console.log('update pet');
+      pet.checkedIn = false;
       try {
         await API.graphql(graphqlOperation(updatePet, { input: pet }));
       } catch (err) {
         console.log(err);
       }
     }
-
     await this.props.getPets();
+    this.setState({ btnLoading: false });
     this.props.onClose();
   }
 
   updateForm(pet) {
-    let petInfo = {...pet}
+    let petInfo = { ...pet }
     if (petInfo.createPet || petInfo.updatedAt) {
       delete petInfo.createdAt;
       delete petInfo.updatedAt;
+      delete petInfo.checkedIn;
     }
-    console.log(petInfo);
+
     this.setState({
       pet: petInfo,
       errors: {}
@@ -145,13 +153,13 @@ class PetInfo extends Component {
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formType">
                 <Form.Label>Species</Form.Label>
-                <Form.Select required name="species" onChange={this.handleInputChange}>
+                <Form.Select required name="species" onChange={this.handleInputChange} value={this.state.pet.species}>
                   {this.state.species.map((type, index) => <option key={index} value={index}>{type}</option>)}
                 </Form.Select>
               </Form.Group>
               <Form.Group as={Col} controlId="formSex">
                 <Form.Label>Sex</Form.Label>
-                <Form.Select required name="sex" onChange={this.handleInputChange}>
+                <Form.Select required name="sex" onChange={this.handleInputChange} value={this.state.pet.sex}>
                   {this.state.petSex.map((type, index) => <option key={index} value={index}>{type}</option>)}
                 </Form.Select>
               </Form.Group>
@@ -210,11 +218,11 @@ class PetInfo extends Component {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={this.props.onClose}>
+          <Button disabled={this.state.btnLoading} variant="secondary" onClick={this.props.onClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={this.handleSave}>
-            Save Changes
+          <Button disabled={this.state.btnLoading} variant="primary" onClick={this.handleSave}>
+            {this.state.btnLoading ? 'Saving...' : 'Save Changes'}
           </Button>
         </Modal.Footer>
       </Modal>

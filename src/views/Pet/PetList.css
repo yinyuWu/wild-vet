@@ -4,6 +4,10 @@
     height: 100vh;
 }
 
+.pet-list .pet-list-container {
+  height: 100%;
+}
+
 .pet-list-none {
     position: relative;
     top: 40%;
@@ -19,6 +23,10 @@
 
 .pet-list .pet-list-remove-btn {
     margin-right: 1rem;
+}
+
+.pet-list .pet-list-update-btn {
+  margin-right: 1rem;
 }
 
 .pet-list .pet-list-cell-problem {
@@ -37,9 +45,24 @@
     width: 18%;
 }
 
+.pet-list .form-check-input[type=checkbox] {
+  border-radius: 50%;
+}
+
 .pet-list .pet-list-save-btn {
     position: relative;
     left: 100%;
     transform: translateX(-100%);
     margin-top: 2rem;
+}
+
+.pet-list .pet-active {
+  background-color: rgba(0, 0, 0, 0.05);;
+}
+
+.pet-list .spinner-border {
+  display: block;
+  margin: auto;
+  position: relative;
+  top: 40%
 }
