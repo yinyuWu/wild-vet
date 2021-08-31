@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table, Button, Form, Spinner } from 'react-bootstrap'
+import { Table, Button, Form, Spinner, Pagination } from 'react-bootstrap'
 import PetInfo from '../../components/PetInfo/PetInfo';
 import AlertModal from '../../components/Alert/AlertModal';
 import { connect } from 'react-redux';
@@ -38,9 +38,15 @@ class PetList extends Component {
       alertType: '',
       alertInfo: '',
       btnLoading: false,
-      listLoading: true
+      listLoading: true,
+      currentPage: 0,
+      totalPages: 0,
+      pageSize: 10,
+      pages: [],
+      pageItems: []
     };
     this.getPetList = this.getPetList.bind(this);
+    this.changePage = this.changePage.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleCloseAddForm = this.handleCloseAddForm.bind(this);
@@ -55,6 +61,7 @@ class PetList extends Component {
 
   async getPetList() {
     try {
+      // fetch data
       const user = AuthService.getUserName();
       if (user) {
         const petData = await API.graphql(graphqlOperation(listPets, {
@@ -62,22 +69,46 @@ class PetList extends Component {
             owner: {
               eq: user
             }
-          }
+          },
         }));
         const petList = petData.data.listPets.items;
+
+        // build pages
+        const totalPages = petList.length / this.state.pageSize;
         let states = new Array(petList.length).fill(false);
+        let pages = [];
+        for (let i = 0; i < totalPages; i++) {
+          pages.push(<Pagination.Item key={i + 1} active={this.state.currentPage === i} onClick={(e) => this.changePage(e)}>{i + 1}</Pagination.Item>)
+        }
         for (let index in petList) {
           states[index] = petList[index].checkedIn
         }
         this.setState({
+          pages,
           petList,
           checkStates: states,
-          listLoading: false
+          listLoading: false,
+          totalPages,
+          pageItems: petList.slice(this.state.currentPage * this.state.pageSize, (this.state.currentPage + 1) * this.state.pageSize)
         });
       }
     } catch (err) {
       console.log('error on fetching pets: ', err);
     }
+  }
+
+  changePage(e) {
+    const page = e.target.innerText - 1;
+    const { petList, totalPages } = this.state;
+    let pages = [];
+    for (let i = 0; i < totalPages; i++) {
+      pages.push(<Pagination.Item key={i + 1} active={page === i} onClick={(page) => this.changePage(page)}>{i + 1}</Pagination.Item>)
+    }
+    this.setState({
+      currentPage: page,
+      pages,
+      pageItems: petList.slice(page * this.state.pageSize, (page + 1) * this.state.pageSize)
+    });
   }
 
   handleCloseAlert() {
@@ -128,18 +159,17 @@ class PetList extends Component {
     await this.getPetList();
   }
 
-  handleAddCheckIn(index) {
+  handleAddCheckIn(index, pet) {
     let states = [...this.state.checkStates];
     let checkin = [...this.state.checkInList];
     states[index] = !states[index];
     if (states[index]) checkin.push(this.state.petList[index]);
-    else checkin.splice(index, 1);
-    
+    else checkin.splice(checkin.indexOf(pet), 1);
+
     this.setState({
       checkInList: checkin,
       checkStates: states
     })
-    // console.log('check in ', index);
   }
 
   async handleSavePets() {
@@ -177,6 +207,14 @@ class PetList extends Component {
       const pet = this.state.checkInList[i];
       doc.text(`name: ${pet.name}, age: ${pet.age}, sex: ${this.state.petSex[pet.sex]}\nspecies: ${this.state.species[pet.species]}, breed: ${pet.breed}, color: ${pet.color}, weight: ${pet.weight}\nmedications: ${pet.medications}\ninsurance: ${pet.insurance}\nmicrochip: ${pet.microchip}\nparasite control: ${pet.parasiteControl}`, 10, 70 + i * 60);
     }
+    let currentdate = new Date();
+    let datetime = currentdate.getHours() + ":"
+      + currentdate.getMinutes() + ":"
+      + currentdate.getSeconds() + "," 
+      + currentdate.getDate() + "/"
+      + (currentdate.getMonth() + 1) + "/"
+      + currentdate.getFullYear();
+    doc.text(datetime, 150, 70 + this.state.checkInList.length * 60);
     const pdfFile = doc.output('datauristring');
     const content = pdfFile.replace(/^data:application\/pdf;filename=generated.pdf;base64,/, "");
 
@@ -193,7 +231,7 @@ class PetList extends Component {
       }).then(res => {
         let result = res.data;
         console.log(result);
-        this.setState({ showAlert: true, alertType: 'success', alertInfo: 'Check In Successfully', btnLoading: false });
+        this.setState({ showAlert: true, alertType: 'success', alertInfo: 'Check In Successfully', btnLoading: false, checkInList: [] });
       })
     })
   }
@@ -202,44 +240,45 @@ class PetList extends Component {
     return (
       <div className="pet-list">
         {!AuthService.isUserLoggedIn() ? <h1 className="pet-list-none">Please sign in to see your pet list</h1> :
-        <div className="pet-list-container">
-          { this.state.listLoading ? <Spinner animation="border" /> :
-          <div>
-            <Button variant="outline-primary" className="pet-list-add-btn mb-3" onClick={this.handleAdd}>Add Pet</Button>
-            <Table hover responsive>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Species</th>
-                  <th>Breed</th>
-                  <th>Age</th>
-                  <th>Sex</th>
-                  <th>Action</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.petList.map((pet, index) => (
-                  <tr key={pet.id} className={this.state.checkStates[index] ? 'pet-active' : ''}>
-                    <td>{pet.name}</td>
-                    <td>{this.state.species[pet.species]}</td>
-                    <td>{pet.breed}</td>
-                    <td>{pet.age}</td>
-                    <td>{this.state.petSex[pet.sex]}</td>
-                    <td className="pet-list-cell-action">
-                      <Button size="sm" variant="danger" onClick={() => this.handleDelete(pet.id)} className="pet-list-remove-btn">Remove</Button>
-                      <Button size="sm" className="pet-list-update-btn" onClick={() => this.handleUpdate(pet)}>Update</Button>
-                    </td>
-                    <td><Form.Check type="checkbox" id={`checkbox-${index}`} checked={this.state.checkStates[index]} disabled={pet.checkedIn} onChange={() => this.handleAddCheckIn(index)}/></td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-            <Button size="lg" className="pet-list-save-btn" disabled={this.state.btnLoading} onClick={this.handleSavePets}>{this.state.btnLoading ? 'In Progress...' : 'Check In'}</Button>
-            <PetInfo ref={this.child} show={this.state.showPetInfo} onClose={this.handleCloseAddForm} actionType={this.state.actionType} pet={this.state.selectedPet} username={AuthService.getUserName()} getPets={this.getPetList} />
+          <div className="pet-list-container">
+            {this.state.listLoading ? <Spinner animation="border" /> :
+              <div>
+                <Button variant="outline-primary" className="pet-list-add-btn mb-3" onClick={this.handleAdd}>Add Pet</Button>
+                <Table hover responsive>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Species</th>
+                      <th>Breed</th>
+                      <th>Age</th>
+                      <th>Sex</th>
+                      <th>Action</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.state.pageItems.map((pet, index) => (
+                      <tr key={pet.id} className={this.state.checkStates[index] ? 'pet-active' : ''}>
+                        <td>{pet.name}</td>
+                        <td>{this.state.species[pet.species]}</td>
+                        <td>{pet.breed}</td>
+                        <td>{pet.age}</td>
+                        <td>{this.state.petSex[pet.sex]}</td>
+                        <td className="pet-list-cell-action">
+                          <Button size="sm" variant="danger" onClick={() => this.handleDelete(pet.id)} className="pet-list-remove-btn">Remove</Button>
+                          <Button size="sm" className="pet-list-update-btn" onClick={() => this.handleUpdate(pet)}>Update</Button>
+                        </td>
+                        <td><Form.Check type="checkbox" id={`checkbox-${this.state.currentPage*this.state.pageSize + index}`} checked={this.state.checkStates[this.state.currentPage*this.state.pageSize + index]} disabled={pet.checkedIn} onChange={() => this.handleAddCheckIn(this.state.currentPage*this.state.pageSize + index, pet)} /></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+                {this.state.totalPages > 1 && <Pagination>{this.state.pages}</Pagination>}
+                <Button size="lg" className="pet-list-save-btn" disabled={this.state.btnLoading} onClick={this.handleSavePets}>{this.state.btnLoading ? 'In Progress...' : 'Check In'}</Button>
+                <PetInfo ref={this.child} show={this.state.showPetInfo} onClose={this.handleCloseAddForm} actionType={this.state.actionType} pet={this.state.selectedPet} username={AuthService.getUserName()} getPets={this.getPetList} />
+              </div>}
+            <AlertModal show={this.state.showAlert} onClose={this.handleCloseAlert} type={this.state.alertType} info={this.state.alertInfo} />
           </div>}
-          <AlertModal show={this.state.showAlert} onClose={this.handleCloseAlert} type={this.state.alertType} info={this.state.alertInfo}/>
-      </div>}
       </div>
     )
   }

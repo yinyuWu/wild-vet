@@ -66,3 +66,7 @@
   position: relative;
   top: 40%
 }
+
+.pet-list .pagination {
+  justify-content: flex-end;
+}

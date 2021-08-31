@@ -71,7 +71,7 @@ class PetInfo extends Component {
   async handleSave() {
     this.setState({ btnLoading: true });
     const errors = this.validate();
-    console.log()
+    console.log(errors);
     if (errors) {
       this.setState({ btnLoading: false });
       return
@@ -104,7 +104,7 @@ class PetInfo extends Component {
 
   updateForm(pet) {
     let petInfo = { ...pet }
-    if (petInfo.createPet || petInfo.updatedAt) {
+    if (petInfo.createPet || petInfo.updatedAt || petInfo.checkedIn) {
       delete petInfo.createdAt;
       delete petInfo.updatedAt;
       delete petInfo.checkedIn;
