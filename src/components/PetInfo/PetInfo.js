@@ -71,7 +71,6 @@ class PetInfo extends Component {
   async handleSave() {
     this.setState({ btnLoading: true });
     const errors = this.validate();
-    console.log(errors);
     if (errors) {
       this.setState({ btnLoading: false });
       return

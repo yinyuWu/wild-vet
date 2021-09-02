@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table, Button, Form, Spinner, Pagination } from 'react-bootstrap'
+import { Table, Button, Form, Spinner, Pagination, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import PetInfo from '../../components/PetInfo/PetInfo';
 import AlertModal from '../../components/Alert/AlertModal';
 import { connect } from 'react-redux';
@@ -41,7 +41,7 @@ class PetList extends Component {
       listLoading: true,
       currentPage: 0,
       totalPages: 0,
-      pageSize: 10,
+      pageSize: 8,
       pages: [],
       pageItems: []
     };
@@ -70,6 +70,7 @@ class PetList extends Component {
               eq: user
             }
           },
+          sortDirection: 'DESC',
         }));
         const petList = petData.data.listPets.items;
 
@@ -78,7 +79,7 @@ class PetList extends Component {
         let states = new Array(petList.length).fill(false);
         let pages = [];
         for (let i = 0; i < totalPages; i++) {
-          pages.push(<Pagination.Item key={i + 1} active={this.state.currentPage === i} onClick={(e) => this.changePage(e)}>{i + 1}</Pagination.Item>)
+          pages.push(<Pagination.Item key={i + 1} active={this.state.currentPage === i} onClick={() => this.changePage(i)}>{i + 1}</Pagination.Item>)
         }
         for (let index in petList) {
           states[index] = petList[index].checkedIn
@@ -97,12 +98,11 @@ class PetList extends Component {
     }
   }
 
-  changePage(e) {
-    const page = e.target.innerText - 1;
+  changePage(page) {
     const { petList, totalPages } = this.state;
     let pages = [];
     for (let i = 0; i < totalPages; i++) {
-      pages.push(<Pagination.Item key={i + 1} active={page === i} onClick={(page) => this.changePage(page)}>{i + 1}</Pagination.Item>)
+      pages.push(<Pagination.Item key={i + 1} active={page === i} onClick={() => this.changePage(i)}>{i + 1}</Pagination.Item>)
     }
     this.setState({
       currentPage: page,
@@ -149,11 +149,13 @@ class PetList extends Component {
   }
 
   async handleDelete(id) {
-    // console.log(id);
+    document.getElementById(id).disabled = true;
+    document.getElementById(id).innerText = 'Deleting...';
     try {
-      const petData = await API.graphql(graphqlOperation(deletePet, { input: { id } }));
-      console.log(petData);
+      await API.graphql(graphqlOperation(deletePet, { input: { id } }));
     } catch (err) {
+      document.getElementById(id).disabled = false;
+      document.getElementById(id).innerText = 'Remove';
       console.log('error: ', err);
     }
     await this.getPetList();
@@ -210,7 +212,7 @@ class PetList extends Component {
     let currentdate = new Date();
     let datetime = currentdate.getHours() + ":"
       + currentdate.getMinutes() + ":"
-      + currentdate.getSeconds() + "," 
+      + currentdate.getSeconds() + ","
       + currentdate.getDate() + "/"
       + (currentdate.getMonth() + 1) + "/"
       + currentdate.getFullYear();
@@ -265,10 +267,17 @@ class PetList extends Component {
                         <td>{pet.age}</td>
                         <td>{this.state.petSex[pet.sex]}</td>
                         <td className="pet-list-cell-action">
-                          <Button size="sm" variant="danger" onClick={() => this.handleDelete(pet.id)} className="pet-list-remove-btn">Remove</Button>
+                          <Button id={pet.id} size="sm" variant="danger" onClick={() => this.handleDelete(pet.id)} className="pet-list-remove-btn">Remove</Button>
                           <Button size="sm" className="pet-list-update-btn" onClick={() => this.handleUpdate(pet)}>Update</Button>
                         </td>
-                        <td><Form.Check type="checkbox" id={`checkbox-${this.state.currentPage*this.state.pageSize + index}`} checked={this.state.checkStates[this.state.currentPage*this.state.pageSize + index]} disabled={pet.checkedIn} onChange={() => this.handleAddCheckIn(this.state.currentPage*this.state.pageSize + index, pet)} /></td>
+                        
+                        {pet.checkedIn ? <OverlayTrigger key={index} placement='top' overlay={
+                          <Tooltip id={`tooltip-${this.state.currentPage * this.state.pageSize + index}`}>You Must Update Your Pet Info Before Checking In Again!</Tooltip>
+                        }>
+                          <td><Form.Check type="checkbox" id={`checkbox-${this.state.currentPage * this.state.pageSize + index}`} checked={this.state.checkStates[this.state.currentPage * this.state.pageSize + index]} disabled={pet.checkedIn} onChange={() => this.handleAddCheckIn(this.state.currentPage * this.state.pageSize + index, pet)} /></td>
+                        </OverlayTrigger> : 
+                        <td><Form.Check type="checkbox" id={`checkbox-${this.state.currentPage * this.state.pageSize + index}`} checked={this.state.checkStates[this.state.currentPage * this.state.pageSize + index]} disabled={pet.checkedIn} onChange={() => this.handleAddCheckIn(this.state.currentPage * this.state.pageSize + index, pet)} /></td>}
+
                       </tr>
                     ))}
                   </tbody>

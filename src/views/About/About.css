@@ -1,3 +1,46 @@
 .about {
-  height: 100vh;
+  margin-top: 2rem;
+}
+
+.about-title {
+  font-family: serif;
+  font-weight: 300;
+  font-size: 3.5rem;
+  text-align: center;
+}
+
+.about-header {
+  font-size: 2rem;
+  font-weight: 200;
+  border-bottom: 1px solid #222;
+  margin-top: 2rem;
+}
+
+.about-item {
+  margin: 1rem 0;
+}
+
+.about-item .about-item-name {
+  position: relative;
+  font-weight: 400;
+  font-size: 1.5rem;
+  left: 20%;
+  margin-bottom: 1rem;
+}
+
+.about-item .about-item-img {
+  position: relative;
+  left: 40%;
+}
+
+.about .about-content {
+  font-size: 1.2rem;
+  padding: 1rem;
+  margin: 2rem 0 5rem;
+}
+
+@media (max-width: 992px) {
+  .about .about-item-name {
+    left: 40%;
+  }
 }

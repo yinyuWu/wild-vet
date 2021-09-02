@@ -6,6 +6,8 @@
 .home .home-pet-img {
     max-width: 100%;
     max-height: 100%;
+    display: block;
+    margin: auto;
 }
 
 .home .home-pet-title {
@@ -13,15 +15,96 @@
     line-height: 52px;
     font-size: 48px;
     font-weight: 600;
-    font-family: Alliance No\.1,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-family: Alliance no\.1, -apple-system, BlinkMacSystemFont, Segoe UI,
+        Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+        Segoe UI Symbol;
+}
+
+.home .home-slide {
+    height: 60vh;
+}
+
+.home .home-slide .home-slide-desc-about {
+    font-size: 2rem;
+    height: 50%;
+    position: relative;
+    top: 30%;
+    left: 30%;
+}
+
+.home .home-slide .home-slide-desc-check {
+    font-size: 2rem;
+    width: 100%;
+    height: 50%;
+    position: relative;
+    top: 30%;
+    right: 30%;
+}
+
+.home .home-slide div {
+    height: 100%;
 }
 
 .home .home-cases {
-    margin-top: 2rem;
     width: 80%;
-    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 6rem auto;
 }
 
 .home .home-cases .card {
     margin-bottom: 2rem;
+}
+
+.home .home-cases .card .card-text {
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+.home .home-cases .card .card-show-btn {
+    margin: 0;
+    padding: 0;
+    text-decoration: underline;
+    border: none;
+    background: transparent;
+    color: #333;
+}
+
+.home .home-cases .card .card-show-btn::before {
+    content: '';
+    display: inline-block;
+    margin-right: 0.5rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-top: 1px solid #222;
+    border-right: 1px solid #222;
+    transform: rotate(135deg);
+    transition: all 200ms ease-in-out;
+}
+
+.home .home-cases .card .card-hide-btn {
+    margin: 0;
+    padding: 0;
+    text-decoration: underline;
+    border: none;
+    background: transparent;
+    color: #333;
+}
+
+.home .home-cases .card .card-hide-btn::before {
+    content: '';
+    display: inline-block;
+    margin-right: 0.5rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-top: 1px solid #222;
+    border-right: 1px solid #222;
+    transform: rotate(-45deg);
+    transition: all 200ms ease-in-out;
 }
