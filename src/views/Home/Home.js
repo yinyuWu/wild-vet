@@ -30,12 +30,12 @@ class Home extends Component {
     items[index].show = !items[index].show;
     if (items[index].show) {
       card.querySelector('.card-text').style.display = 'block';
-      card.querySelector('button').classList.remove('card-show-btn');
-      card.querySelector('button').classList.add('card-hide-btn');
+      card.querySelector('button').classList.remove('card-show-arrow');
+      card.querySelector('button').classList.add('card-hide-arrow');
     } else {
       card.querySelector('.card-text').style.display = '-webkit-box';
-      card.querySelector('button').classList.remove('card-hide-btn');
-      card.querySelector('button').classList.add('card-show-btn');
+      card.querySelector('button').classList.remove('card-hide-arrow');
+      card.querySelector('button').classList.add('card-show-arrow');
     }
   }
 
@@ -86,7 +86,7 @@ class Home extends Component {
                 <Card.Text>
                   {item.desc}
                 </Card.Text>
-                <Button variant="primary" className="card-show-btn" onClick={() => this.handleShow(index)}>show more</Button>
+                <Button variant="primary" className="card-show-arrow" onClick={() => this.handleShow(index)}>show more</Button>
               </Card.Body>
             </Card>)
           })}

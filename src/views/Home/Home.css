@@ -67,7 +67,7 @@
     white-space: normal;
 }
 
-.home .home-cases .card .card-show-btn {
+.home .home-cases .card .card-show-arrow {
     margin: 0;
     padding: 0;
     text-decoration: underline;
@@ -76,7 +76,7 @@
     color: #333;
 }
 
-.home .home-cases .card .card-show-btn::before {
+.home .home-cases .card .card-show-arrow::before {
     content: '';
     display: inline-block;
     margin-right: 0.5rem;
@@ -85,10 +85,10 @@
     border-top: 1px solid #222;
     border-right: 1px solid #222;
     transform: rotate(135deg);
-    transition: all 200ms ease-in-out;
+    transition: all 0.3s ease 0s;;
 }
 
-.home .home-cases .card .card-hide-btn {
+.home .home-cases .card .card-hide-arrow {
     margin: 0;
     padding: 0;
     text-decoration: underline;
@@ -97,7 +97,7 @@
     color: #333;
 }
 
-.home .home-cases .card .card-hide-btn::before {
+.home .home-cases .card .card-hide-arrow::before {
     content: '';
     display: inline-block;
     margin-right: 0.5rem;
@@ -106,5 +106,5 @@
     border-top: 1px solid #222;
     border-right: 1px solid #222;
     transform: rotate(-45deg);
-    transition: all 200ms ease-in-out;
+    transition: all 0.3s ease 0s;;
 }
