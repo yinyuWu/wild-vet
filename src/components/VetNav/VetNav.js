@@ -14,8 +14,11 @@ class VetNav extends Component {
     super(props);
     this.signOut = this.signOut.bind(this);
     this.state = {
-      signOutLoading: false
+      signOutLoading: false,
+      query: ''
     }
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   async signOut() {
@@ -28,6 +31,16 @@ class VetNav extends Component {
       console.log('error signing out: ', error);
     }
     this.setState({ signOutLoading: false });
+  }
+
+  handleSearch() {
+    window.open(`//google.com/search?q=${this.state.query}`, '_blank');
+  }
+
+  handleInputChange(event) {
+    this.setState({
+      query: event.target.value
+    })
   }
 
   render() {
@@ -49,8 +62,10 @@ class VetNav extends Component {
                     placeholder="Search"
                     className="mr-2"
                     aria-label="Search"
+                    value={this.state.query}
+                    onChange={this.handleInputChange}
                   />
-                  <Button variant="outline-success">Search</Button>
+                  <Button variant="outline-success" onClick={this.handleSearch}>Search</Button>
                 </Form>
               </Nav>
 

@@ -46,27 +46,27 @@ class Home extends Component {
           <Carousel.Item>
             <Container className="home-slide">
               <Row>
-                <Col sm={8}><img src={homePet} alt="home-pet" className="home-pet-img" /></Col>
-                <Col sm={4}><h1 className="home-pet-title">The Wild Vet Veterinary Clinic</h1></Col>
+                <Col md={8}><img src={homePet} alt="home-pet" className="home-pet-img" /></Col>
+                <Col md={4}><h1 className="home-pet-title">The Wild Vet Veterinary Clinic</h1></Col>
               </Row>
             </Container>
           </Carousel.Item>
           <Carousel.Item>
             <Container className="home-slide">
               <Row>
-                <Col sm={3}><div className="home-slide-desc-about">
+                <Col md={3}><div className="home-slide-desc-about">
                   <p>Lorem ipsum dolor sit amet</p>
                   <Link to="/about" className="btn btn-primary home-slide-link">Find More About Us</Link></div>
                 </Col>
-                <Col sm={9}><img src={reptile} alt="home-pet" className="home-pet-img" /></Col>
+                <Col md={9}><img src={reptile} alt="home-pet" className="home-pet-img" /></Col>
               </Row>
             </Container>
           </Carousel.Item>
           <Carousel.Item>
             <Container className="home-slide">
               <Row>
-                <Col sm={10}><img src={pets} alt="home-pet" className="home-pet-img" /></Col>
-                <Col sm={2}>
+                <Col md={10}><img src={pets} alt="home-pet" className="home-pet-img" /></Col>
+                <Col md={2}>
                   <div className="home-slide-desc-check">
                     <p>Lorem ipsum dolor sit amet</p>
                     <Link to="pet-list" className="btn btn-primary home-slide-link">Check In</Link>

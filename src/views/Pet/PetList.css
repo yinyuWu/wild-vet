@@ -5,7 +5,7 @@
 }
 
 .pet-list .pet-list-container {
-  height: 100%;
+    height: 100%;
 }
 
 .pet-list-none {
@@ -26,7 +26,7 @@
 }
 
 .pet-list .pet-list-update-btn {
-  margin-right: 1rem;
+    margin-right: 1rem;
 }
 
 .pet-list .pet-list-cell-problem {
@@ -45,8 +45,8 @@
     width: 18%;
 }
 
-.pet-list .form-check-input[type=checkbox] {
-  border-radius: 50%;
+.pet-list .form-check-input[type='checkbox'] {
+    border-radius: 50%;
 }
 
 .pet-list .pet-list-save-btn {
@@ -57,16 +57,24 @@
 }
 
 .pet-list .pet-active {
-  background-color: rgba(0, 0, 0, 0.05);;
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .pet-list .spinner-border {
-  display: block;
-  margin: auto;
-  position: relative;
-  top: 40%
+    display: block;
+    margin: auto;
+    position: relative;
+    top: 40%;
 }
 
 .pet-list .pagination {
-  justify-content: flex-end;
+    justify-content: flex-end;
+}
+
+@media (max-width: 992px) {
+    .pet-list {
+        width: 80%;
+        margin: 4rem auto;
+        height: auto;
+    }
 }

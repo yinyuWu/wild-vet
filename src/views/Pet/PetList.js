@@ -283,7 +283,7 @@ class PetList extends Component {
                   </tbody>
                 </Table>
                 {this.state.totalPages > 1 && <Pagination>{this.state.pages}</Pagination>}
-                <Button size="lg" className="pet-list-save-btn" disabled={this.state.btnLoading} onClick={this.handleSavePets}>{this.state.btnLoading ? 'In Progress...' : 'Check In'}</Button>
+                {this.state.petList.length > 0 && <Button size="lg" className="pet-list-save-btn" disabled={this.state.btnLoading} onClick={this.handleSavePets}>{this.state.btnLoading ? 'In Progress...' : 'Check In'}</Button>}
                 <PetInfo ref={this.child} show={this.state.showPetInfo} onClose={this.handleCloseAddForm} actionType={this.state.actionType} pet={this.state.selectedPet} username={AuthService.getUserName()} getPets={this.getPetList} />
               </div>}
             <AlertModal show={this.state.showAlert} onClose={this.handleCloseAlert} type={this.state.alertType} info={this.state.alertInfo} />
