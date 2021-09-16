@@ -42,5 +42,12 @@ border-color: #dc3545;
 @media (max-width: 992px) {
   .signin {
     width: 80%;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .signin-container {
+    width: 100%;
+    height: auto;
   }
 }

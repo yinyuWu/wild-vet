@@ -28,6 +28,9 @@ class Home extends Component {
     const card = document.querySelector(`#card-${index}`);
     let items = [...this.state.cases];
     items[index].show = !items[index].show;
+    this.setState({
+      cases: items
+    })
     if (items[index].show) {
       card.querySelector('.card-text').style.display = 'block';
       card.querySelector('button').classList.remove('card-show-arrow');
@@ -86,7 +89,7 @@ class Home extends Component {
                 <Card.Text>
                   {item.desc}
                 </Card.Text>
-                <Button variant="primary" className="card-show-arrow" onClick={() => this.handleShow(index)}>show more</Button>
+                <Button variant="primary" className="card-show-arrow" onClick={() => this.handleShow(index)}>{item.show ? 'hide' : 'show more'}</Button>
               </Card.Body>
             </Card>)
           })}

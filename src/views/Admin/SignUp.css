@@ -44,6 +44,11 @@
 @media (max-width: 992px) {
     .signup {
         width: 90%;
+        margin: 0 auto;
+    }
+
+    .signup-container {
+        width: 100%;
         margin: 3rem auto;
         border: 1px solid #212529;
         border-radius: 1rem;

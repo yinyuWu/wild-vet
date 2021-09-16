@@ -34,7 +34,8 @@ class VetNav extends Component {
   }
 
   handleSearch() {
-    window.open(`//google.com/search?q=${this.state.query}`, '_blank');
+    window.open(`http://thewildvet.com.au/?s=${this.state.query.trim()}`, '_blank');
+    // window.open(`//google.com/search?q=site%3A+thewildvet.com.au+${this.state.query}`, '_blank');
   }
 
   handleInputChange(event) {
@@ -69,7 +70,7 @@ class VetNav extends Component {
                 </Form>
               </Nav>
 
-              {AuthService.isUserLoggedIn() ? <Button disabled={this.state.signOutLoading} className="nav-sign-out" onClick={this.signOut}>{this.state.signOutLoading ? 'Logging Out...' : 'Sign Out'}</Button> : <Nav>
+              {AuthService.isUserLoggedIn() ? <Button variant="outline-dark" disabled={this.state.signOutLoading} className="nav-sign-out" onClick={this.signOut}>{this.state.signOutLoading ? 'Logging Out...' : 'Sign Out'}</Button> : <Nav>
                 <Link to="/signIn" className="nav-link nav-sign-in">Sign In</Link>
               </Nav>}
 
