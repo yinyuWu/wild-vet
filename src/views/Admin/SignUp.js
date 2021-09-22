@@ -26,6 +26,7 @@ class SignUp extends Component {
         postcode: ''
       },
       errors: {},
+      loading: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -34,9 +35,13 @@ class SignUp extends Component {
   }
 
   async handleSubmit() {
+    this.setState({ loading: true });
     // validate form
     const errors = this.validate();
-    if (errors) return;
+    if (errors) { 
+      this.setState({ loading: false });
+      return;
+    }
 
     // call amplify signup api
     const { username, password, address, phone, email, postcode } = this.state.user;
@@ -53,9 +58,11 @@ class SignUp extends Component {
       });
       window.localStorage.setItem('username', username);
       window.localStorage.setItem('email', email);
+      this.setState({ loading: false });
       this.props.history.push('/confirm-code');
     } catch (err) {
       console.log(err);
+      this.setState({ loading: false });
       if (err.code === "UsernameExistsException") {
         let errors = { ...this.state.errors };
         errors.username = err.message;
@@ -147,8 +154,8 @@ class SignUp extends Component {
 
               <Row>
                 <Col md={{ span: 4, offset: 8 }} sm={{ span: 12 }}>
-                  <Button variant="primary" className="signup-form-btn" onClick={this.handleSubmit}>
-                    Sign Up
+                  <Button disabled={this.state.loading} variant="primary" className="signup-form-btn" onClick={this.handleSubmit}>
+                    {this.state.loading ? 'Loading...' : 'Sign Up'}
                   </Button>
                 </Col>
               </Row>

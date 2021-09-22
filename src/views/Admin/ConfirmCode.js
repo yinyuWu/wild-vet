@@ -10,7 +10,8 @@ class ConfirmCode extends Component {
     super(props);
     this.state = {
       code: '',
-      error: {}
+      error: {},
+      loading: false
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -34,13 +35,16 @@ class ConfirmCode extends Component {
   }
 
   async handleSubmit() {
+    this.setState({ loading: true });
     const username = window.localStorage.getItem('username');
     try {
       await Auth.confirmSignUp(username, this.state.code);
       window.localStorage.removeItem('username');
       window.localStorage.removeItem('email');
+      this.setState({ loading: false })
       this.props.history.push('/signin');
     } catch (err) {
+      this.setState({ loading: false })
       if (err.code === "CodeMismatchException") {
         let error = { msg: err.message };
         this.setState({ error });
@@ -61,13 +65,13 @@ class ConfirmCode extends Component {
             </Form.Group>
 
             <div className="confirm-form-btn">
-              <Button size="sm" variant="primary"
+              <Button disabled={this.state.loading} size="sm" variant="primary"
                 onClick={this.handleResent}>
-                Resent Code
+                {this.state.loading ? 'Loading...' : 'Resent Code'}
               </Button>
-              <Button size="sm" variant="primary"
+              <Button disabled={this.state.loading} size="sm" variant="primary"
                 onClick={this.handleSubmit}>
-                Confirm Code
+                {this.state.loading ? 'Loading...' : 'Confirm Code'}
               </Button>
             </div>
           </Form>
