@@ -48,11 +48,6 @@ class Home extends Component {
     this.state = {
       cases
     }
-    this.handleShow = this.handleShow.bind(this);
-  }
-
-  handleShow(index) {
-
   }
 
   render() {

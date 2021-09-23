@@ -24,13 +24,21 @@
   position: relative;
   font-weight: 400;
   font-size: 1.5rem;
-  left: 20%;
   margin-bottom: 1rem;
+}
+
+
+.about .about-item p {
+  white-space: pre-line;
+  font-weight: 300;
+  text-align: center;
 }
 
 .about-item .about-item-img {
   position: relative;
-  left: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 1rem;
 }
 
 .about .about-content {

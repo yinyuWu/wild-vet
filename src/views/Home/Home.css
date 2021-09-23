@@ -99,6 +99,10 @@
         height: 40vh;
     }
 
+    .home .home-title {
+      margin-top: 3rem;
+    }
+
     .home .home-pet-title {
         margin: 0;
         font-size: 2rem;
