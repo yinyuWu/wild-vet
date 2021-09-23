@@ -52,7 +52,7 @@ class Home extends Component {
   }
 
   handleShow(index) {
-    
+
   }
 
   render() {
@@ -92,7 +92,8 @@ class Home extends Component {
             </Container>
           </Carousel.Item>
         </Carousel>
-
+        <br />
+        <h2 className="home-title">THE WILD VET CONSERVATION FUND</h2>
         <div className="home-cases">
           {this.state.cases.map((item, index) => {
             return (<Card key={index} style={{ width: '18rem' }} id={`card-${index}`}>
@@ -107,6 +108,10 @@ class Home extends Component {
               </Card.Body>
             </Card>)
           })}
+        </div>
+        <h2 className="home-title">ABOUT</h2>
+        <div className="home-text">
+          Here at The Wild Vet your pets are part of our family. You will be looked after by our qualified veterinary and nursing team who have extensive experience with all species – come and meet the team. In addition to dogs and cats, we have a special focus on birds, rabbits, reptiles, rodents, and other pocket pets (see the species we treat). At the Wild Vet we work with state of the art diagnostic, laboratory, surgical and clinical settings to provide the highest standard of care for your pet. Whenever possible your pet will see their regular vet that knows them best, and our priority is to have frequent and open communication while your pet is with us.
         </div>
       </div>
 
