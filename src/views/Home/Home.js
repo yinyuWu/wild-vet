@@ -65,9 +65,8 @@ class Home extends Component {
           <Carousel.Item>
             <Container className="home-slide">
               <Row>
-                <Col md={3}><div className="home-slide-desc-about">
-                  <p>Lorem ipsum dolor sit amet</p>
-                  <Link to="/about" className="btn btn-primary home-slide-link">Find More About Us</Link></div>
+                <Col md={3}>
+                  <Link to="/about" className="btn btn-secondary home-slide-link home-slide-find-link">Find More About Us</Link>
                 </Col>
                 <Col md={9}><img src={reptile} alt="home-pet" className="home-pet-img" /></Col>
               </Row>
@@ -76,13 +75,8 @@ class Home extends Component {
           <Carousel.Item>
             <Container className="home-slide">
               <Row>
-                <Col md={10}><img src={pets} alt="home-pet" className="home-pet-img" /></Col>
-                <Col md={2}>
-                  <div className="home-slide-desc-check">
-                    <p>Lorem ipsum dolor sit amet</p>
-                    <Link to="pet-list" className="btn btn-primary home-slide-link">Check In</Link>
-                  </div>
-                </Col>
+                <Col md={12}><img src={pets} alt="home-pet" className="home-pet-img" /></Col>
+                <Link to="pet-list" className="btn btn-outline-dark home-slide-link home-slide-checkin-link">Click Me To Check In</Link>
               </Row>
             </Container>
           </Carousel.Item>

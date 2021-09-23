@@ -60,9 +60,3 @@
   font-size: 12pt;
   font-weight: 200;
 }
-
-@media (max-width: 992px) {
-  .about .about-item-name {
-    left: 40%;
-  }
-}
