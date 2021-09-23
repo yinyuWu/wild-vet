@@ -46,8 +46,8 @@ class VetNav extends Component {
 
   render() {
     return (
-      <div>
-        <Navbar bg="light" expand="lg">
+      <div className="wildvet-nav">
+        <Navbar expand="lg">
           <Container>
             <Navbar.Brand href="#"><img src={logo} alt="logo" width="40" height="40" className="d-inline-block align-top vet-nav-brand-img" />
             </Navbar.Brand>

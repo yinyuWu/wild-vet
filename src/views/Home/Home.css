@@ -56,57 +56,26 @@
 
 .home .home-cases .card {
     margin-bottom: 2rem;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.home .home-cases .card .card-body {
+    height: 290px;
 }
 
 .home .home-cases .card .card-text {
-    -webkit-box-orient: vertical;
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
+    font-size: 10pt;
+    margin-top: 1rem;
 }
 
-.home .home-cases .card .card-show-arrow {
-    margin: 0;
-    padding: 0;
+.home .home-cases .card .card-link {
+    position: absolute;
+    bottom: 1rem;
+}
+
+.home .home-cases .card .card-link:hover {
     text-decoration: underline;
-    border: none;
-    background: transparent;
-    color: #333;
-}
-
-.home .home-cases .card .card-show-arrow::before {
-    content: '';
-    display: inline-block;
-    margin-right: 0.5rem;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-top: 1px solid #222;
-    border-right: 1px solid #222;
-    transform: rotate(135deg);
-    transition: all 0.3s ease 0s;
-}
-
-.home .home-cases .card .card-hide-arrow {
-    margin: 0;
-    padding: 0;
-    text-decoration: underline;
-    border: none;
-    background: transparent;
-    color: #333;
-}
-
-.home .home-cases .card .card-hide-arrow::before {
-    content: '';
-    display: inline-block;
-    margin-right: 0.5rem;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-top: 1px solid #222;
-    border-right: 1px solid #222;
-    transform: rotate(-45deg);
-    transition: all 0.3s ease 0s;
+    font-style: italic;
 }
 
 @media (max-width: 992px) {

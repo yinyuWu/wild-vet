@@ -1,20 +1,47 @@
 import React, { Component } from 'react'
-import { Container, Row, Col, Card, Button, Carousel } from 'react-bootstrap'
+import { Container, Row, Col, Card, Carousel } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import './Home.css'
 import homePet from '../../images/home-pet.jpeg'
 import reptile from '../../images/reptile.png'
 import pets from '../../images/pets.png'
-import placeholder from '../../images/placeholder.png'
 
 class Home extends Component {
   constructor(props) {
     super(props);
     let cases = [];
+    const imgsURL = [
+      'https://i1.wp.com/thewildvet.com.au/wp-content/uploads/2020/12/psturtle.jpg?w=1300',
+      'https://i0.wp.com/thewildvet.com.au/wp-content/uploads/2020/12/znwshugo.jpg?w=1300',
+      'https://i2.wp.com/thewildvet.com.au/wp-content/uploads/2020/12/sbc.jpg?w=1300',
+    ];
+    const titles = [
+      'Rescuing, rehabilitating, & releasing turtles in Port Stephens',
+      'Operating on the resident red-necked Wallaby ‘Hugo’',
+      'Transporting 50 juvenile bats for release'
+    ];
+    const subtitles = [
+      'with Sea Shelter',
+      'with Zambi Native Wildlife Sanctuary',
+      'with Shoalhaven Bat Clinic & Sanctuary'
+    ];
+    const body = [
+      '“[Emma] had approached us previously after visiting our facility, offering her assistance. Residing in Sydney, she showed dedication driving up here with her team to assess Ally,”',
+      '“Thank you so much to Dr Emma Hall and her team from The Wild Vet Clinic for operating on our resident Red-necked Wallaby, Hugo today… “',
+      '“…Emma Hall, a Veterinarian, from The Wild Vet clinic, regularly attends to flying-fox injuries…”'
+    ];
+    const links = [
+      'https://www.newcastleherald.com.au/story/6992673/rescuing-rehabilitating-and-releasing-turtles-in-port-stephens/',
+      'https://m.facebook.com/permalink.php?id=550936358295158&story_fbid=3225648750823892',
+      'https://www.flyingfoxsupporters.com.au/news/rescue-of-a-3-month-juvenile-flying-fox-in-redfern-sydney-valuable-contribution-by-police-officers-veterinarian?fbclid=IwAR2kd83HPNwNsWP__HZv_1XNB3WIoqQ8sRaznDBjrpiFLJ5cXJ10BK_Rx_U'
+    ]
     for (let i = 0; i < 3; i++) {
       cases.push({
-        title: 'Case Title',
-        desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        title: titles[i],
+        subtitle: subtitles[i],
+        desc: body[i],
+        img: imgsURL[i],
+        link: links[i],
         show: false
       })
     }
@@ -25,21 +52,7 @@ class Home extends Component {
   }
 
   handleShow(index) {
-    const card = document.querySelector(`#card-${index}`);
-    let items = [...this.state.cases];
-    items[index].show = !items[index].show;
-    this.setState({
-      cases: items
-    })
-    if (items[index].show) {
-      card.querySelector('.card-text').style.display = 'block';
-      card.querySelector('button').classList.remove('card-show-arrow');
-      card.querySelector('button').classList.add('card-hide-arrow');
-    } else {
-      card.querySelector('.card-text').style.display = '-webkit-box';
-      card.querySelector('button').classList.remove('card-hide-arrow');
-      card.querySelector('button').classList.add('card-show-arrow');
-    }
+    
   }
 
   render() {
@@ -83,13 +96,14 @@ class Home extends Component {
         <div className="home-cases">
           {this.state.cases.map((item, index) => {
             return (<Card key={index} style={{ width: '18rem' }} id={`card-${index}`}>
-              <Card.Img variant='top' src={placeholder}></Card.Img>
+              <Card.Img variant='top' src={item.img} width="286" height="250"></Card.Img>
               <Card.Body>
                 <Card.Title>{item.title}</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">{item.subtitle}</Card.Subtitle>
                 <Card.Text>
                   {item.desc}
                 </Card.Text>
-                <Button variant="primary" className="card-show-arrow" onClick={() => this.handleShow(index)}>{item.show ? 'hide' : 'show more'}</Button>
+                <Card.Link href={item.link} target="_blank" className="btn btn-secondary card-link">Read More</Card.Link>
               </Card.Body>
             </Card>)
           })}
