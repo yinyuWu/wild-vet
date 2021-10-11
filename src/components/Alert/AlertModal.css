@@ -45,3 +45,11 @@
   font-size: 1rem;
   padding: 0 1rem;
 }
+
+@media (max-width: 992px) {
+  .success-modal .modal-dialog {
+    width: 70%;
+    left: 50%;
+    transform: translateX(-50%) !important;
+  }
+}
